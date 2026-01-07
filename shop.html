@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Shop - Silvar.gg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <meta name="color-scheme" content="light dark">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <!-- Frosted Glass Header -->
+    <header class="frosted-header">
+        <nav class="main-nav">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 5 L50 15 L50 45 L30 55 L10 45 L10 15 Z" fill="#4c7fe8" stroke="#ff57a6" stroke-width="2"/>
+                    </svg>
+                    <span>Silvar.gg</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <select class="game-selector" id="game-selector">
+                    <option value="">Select Game</option>
+                    <option value="murder-mystery" selected>Murder Mystery 2</option>
+                    <option value="grow-garden">Grow A Garden</option>
+                    <option value="steal-brainrot">Steal A Brainrot</option>
+                    <option value="blade-ball">Blade Ball</option>
+                    <option value="blox-fruits">Blox Fruits</option>
+                    <option value="dress-impress">Dress To Impress</option>
+                </select>
+                
+                <select class="lang-currency">
+                    <option value="en-usd">🇺🇸 English / USD</option>
+                    <option value="en-eur">🇪🇺 English / EUR</option>
+                    <option value="es-usd">🇪🇸 Español / USD</option>
+                </select>
+            </div>
+            
+            <div class="nav-right">
+                <div class="balance-display" id="balance-display">
+                    <span id="balance-amount">0</span> 💎
+                    <button class="btn small" data-action="add-balance">+</button>
+                </div>
+                <div id="auth-section">
+                    <button data-action="login">Login</button>
+                    <button data-action="register">Register</button>
+                </div>
+                <div class="cart-section">
+                    <button class="cart-btn" data-action="view-cart">
+                        🛒 <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Shop Header -->
+        <section class="shop-header">
+            <h1>⚔️ Game Shop</h1>
+            <p>Buy items directly with instant delivery!</p>
+            
+            <div class="shop-controls">
+                <div class="search-filter">
+                    <input type="text" placeholder="Search items..." id="item-search">
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="weapons">Weapons</option>
+                        <option value="pets">Pets</option>
+                        <option value="skins">Skins</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="currency">Currency</option>
+                    </select>
+                    <select id="price-filter">
+                        <option value="">All Prices</option>
+                        <option value="0-1">$0 - $1</option>
+                        <option value="1-5">$1 - $5</option>
+                        <option value="5-10">$5 - $10</option>
+                        <option value="10+">$10+</option>
+                    </select>
+                </div>
+                
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">Grid</button>
+                    <button class="view-btn" data-view="list">List</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop Items -->
+        <section class="shop-items">
+            <div class="shop-grid" id="shop-grid">
+                <!-- Murder Mystery 2 Items -->
+                <div class="shop-item" data-game="murder-mystery" data-category="weapons" data-price="2.50">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/4c7fe8/ffffff?text=Luger" alt="Luger">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"luger","name":"Luger","price":2.50,"image":"https://via.placeholder.com/160x160/4c7fe8/ffffff?text=Luger","game":"murder-mystery","category":"weapons"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Luger</h3>
+                        <p>Classic MM2 godly</p>
+                        <span class="price">$2.50</span>
+                        <span class="rarity legendary">Legendary</span>
+                    </div>
+                </div>
+                
+                <div class="shop-item" data-game="murder-mystery" data-category="weapons" data-price="8.00">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/ff57a6/ffffff?text=Chroma+Laser" alt="Chroma Laser">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"chroma-laser","name":"Chroma Laser","price":8.00,"image":"https://via.placeholder.com/160x160/ff57a6/ffffff?text=Chroma+Laser","game":"murder-mystery","category":"weapons"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Chroma Laser</h3>
+                        <p>Shiny rainbow laser</p>
+                        <span class="price">$8.00</span>
+                        <span class="rarity godly">Godly</span>
+                    </div>
+                </div>
+                
+                <div class="shop-item" data-game="murder-mystery" data-category="weapons" data-price="3.00">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/57ff9a/222222?text=Slasher" alt="Slasher">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"slasher","name":"Slasher","price":3.00,"image":"https://via.placeholder.com/160x160/57ff9a/222222?text=Slasher","game":"murder-mystery","category":"weapons"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Slasher</h3>
+                        <p>Knife & gun set</p>
+                        <span class="price">$3.00</span>
+                        <span class="rarity rare">Rare</span>
+                    </div>
+                </div>
+                
+                <div class="shop-item" data-game="murder-mystery" data-category="pets" data-price="4.50">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/ffd700/222222?text=Legendary+Pet" alt="Legendary Pet">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"legendary-pet","name":"Legendary Pet","price":4.50,"image":"https://via.placeholder.com/160x160/ffd700/222222?text=Legendary+Pet","game":"murder-mystery","category":"pets"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Legendary Pet</h3>
+                        <p>Exclusive companion</p>
+                        <span class="price">$4.50</span>
+                        <span class="rarity legendary">Legendary</span>
+                    </div>
+                </div>
+                
+                <div class="shop-item featured" data-game="murder-mystery" data-category="weapons" data-price="15.00">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/8a2be2/ffffff?text=Godly+Set" alt="Godly Set">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"godly-set","name":"Godly Set","price":15.00,"image":"https://via.placeholder.com/160x160/8a2be2/ffffff?text=Godly+Set","game":"murder-mystery","category":"weapons"}'>Add to Cart</button>
+                        </div>
+                        <span class="featured-badge">HOT DEAL</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Godly Set</h3>
+                        <p>Complete godly collection</p>
+                        <span class="price">$15.00</span>
+                        <span class="original-price">$25.00</span>
+                        <span class="rarity godly">Godly</span>
+                    </div>
+                </div>
+                
+                <div class="shop-item" data-game="murder-mystery" data-category="accessories" data-price="1.50">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/888888/ffffff?text=Common+Accessory" alt="Common Accessory">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"common-accessory","name":"Common Accessory","price":1.50,"image":"https://via.placeholder.com/160x160/888888/ffffff?text=Common+Accessory","game":"murder-mystery","category":"accessories"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Common Accessory</h3>
+                        <p>Basic cosmetic item</p>
+                        <span class="price">$1.50</span>
+                        <span class="rarity common">Common</span>
+                    </div>
+                </div>
+                
+                <!-- Grow A Garden Items -->
+                <div class="shop-item" data-game="grow-garden" data-category="seeds" data-price="2.50">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/90EE90/222222?text=Legendary+Seed" alt="Legendary Seed">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"legendary-seed","name":"Legendary Seed","price":2.50,"image":"https://via.placeholder.com/160x160/90EE90/222222?text=Legendary+Seed","game":"grow-garden","category":"seeds"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Legendary Seed</h3>
+                        <p>Grows mythical plants</p>
+                        <span class="price">$2.50</span>
+                        <span class="rarity legendary">Legendary</span>
+                    </div>
+                </div>
+                
+                <div class="shop-item" data-game="grow-garden" data-category="tools" data-price="3.50">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/228B22/ffffff?text=Golden+Watering+Can" alt="Golden Watering Can">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"golden-watering-can","name":"Golden Watering Can","price":3.50,"image":"https://via.placeholder.com/160x160/228B22/ffffff?text=Golden+Watering+Can","game":"grow-garden","category":"tools"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Golden Watering Can</h3>
+                        <p>Speeds up plant growth</p>
+                        <span class="price">$3.50</span>
+                        <span class="rarity epic">Epic</span>
+                    </div>
+                </div>
+                
+                <!-- Steal A Brainrot Items -->
+                <div class="shop-item" data-game="steal-brainrot" data-category="weapons" data-price="4.00">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/8B4513/ffffff?text=Brainrot+Blade" alt="Brainrot Blade">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"brainrot-blade","name":"Brainrot Blade","price":4.00,"image":"https://via.placeholder.com/160x160/8B4513/ffffff?text=Brainrot+Blade","game":"steal-brainrot","category":"weapons"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Brainrot Blade</h3>
+                        <p>Legendary melee weapon</p>
+                        <span class="price">$4.00</span>
+                        <span class="rarity legendary">Legendary</span>
+                    </div>
+                </div>
+                
+                <div class="shop-item" data-game="steal-brainrot" data-category="accessories" data-price="2.25">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/4B0082/ffffff?text=Stealth+Cloak" alt="Stealth Cloak">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"stealth-cloak","name":"Stealth Cloak","price":2.25,"image":"https://via.placeholder.com/160x160/4B0082/ffffff?text=Stealth+Cloak","game":"steal-brainrot","category":"accessories"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Stealth Cloak</h3>
+                        <p>Become invisible</p>
+                        <span class="price">$2.25</span>
+                        <span class="rarity rare">Rare</span>
+                    </div>
+                </div>
+                
+                <!-- Blade Ball Items -->
+                <div class="shop-item" data-game="blade-ball" data-category="weapons" data-price="5.00">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/FF4500/ffffff?text=Epic+Sword" alt="Epic Sword">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"epic-sword","name":"Epic Sword","price":5.00,"image":"https://via.placeholder.com/160x160/FF4500/ffffff?text=Epic+Sword","game":"blade-ball","category":"weapons"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Epic Sword</h3>
+                        <p>Enhanced blade damage</p>
+                        <span class="price">$5.00</span>
+                        <span class="rarity epic">Epic</span>
+                    </div>
+                </div>
+                
+                <!-- Blox Fruits Items -->
+                <div class="shop-item" data-game="blox-fruits" data-category="fruits" data-price="12.00">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/FF1493/ffffff?text=Legendary+Fruit" alt="Legendary Fruit">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"legendary-fruit","name":"Legendary Fruit","price":12.00,"image":"https://via.placeholder.com/160x160/FF1493/ffffff?text=Legendary+Fruit","game":"blox-fruits","category":"fruits"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Legendary Fruit</h3>
+                        <p>Ultimate power fruit</p>
+                        <span class="price">$12.00</span>
+                        <span class="rarity legendary">Legendary</span>
+                    </div>
+                </div>
+                
+                <!-- Dress To Impress Items -->
+                <div class="shop-item" data-game="dress-impress" data-category="accessories" data-price="3.75">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/160x160/00CED1/ffffff?text=Fashion+Set" alt="Fashion Set">
+                        <div class="item-overlay">
+                            <button class="btn secondary" data-action="add-to-cart" data-item='{"id":"fashion-set","name":"Fashion Set","price":3.75,"image":"https://via.placeholder.com/160x160/00CED1/ffffff?text=Fashion+Set","game":"dress-impress","category":"accessories"}'>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Fashion Set</h3>
+                        <p>Complete outfit collection</p>
+                        <span class="price">$3.75</span>
+                        <span class="rarity rare">Rare</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="load-more">
+                <button class="btn secondary" id="load-more-btn">Load More Items</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>What is Silvar.gg?</h3>
+                <p>Silvar.gg is the leading online marketplace for in-game items, offering instant delivery, unbeatable prices, and a secure shopping experience.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blind-boxes.html">Blind Boxes</a></li>
+                    <li><a href="profile.html">My Account</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">🐦 Twitter</a>
+                    <a href="#" class="social-link">📺 YouTube</a>
+                    <a href="#" class="social-link">🎵 TikTok</a>
+                    <a href="#" class="social-link">💬 Discord</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© <span id="year"><script>document.write(new Date().getFullYear())</script></span> Silvar.gg – Not affiliated with Roblox Corporation or any game developers.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Shop functionality
+        let currentGame = 'murder-mystery';
+        let currentView = 'grid';
+        let allItems = [];
+        let displayedItems = 0;
+        const itemsPerPage = 12;
+        
+        // Initialize shop
+        document.addEventListener('DOMContentLoaded', () => {
+            allItems = Array.from(document.querySelectorAll('.shop-item'));
+            filterItems();
+            
+            // Game selector
+            document.getElementById('game-selector').addEventListener('change', (e) => {
+                if (e.target.value) {
+                    currentGame = e.target.value;
+                    filterItems();
+                }
+            });
+            
+            // Search
+            document.getElementById('item-search').addEventListener('input', filterItems);
+            
+            // Category filter
+            document.getElementById('category-filter').addEventListener('change', filterItems);
+            
+            // Price filter
+            document.getElementById('price-filter').addEventListener('change', filterItems);
+            
+            // View toggle
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentView = btn.dataset.view;
+                    updateView();
+                });
+            });
+            
+            // Load more
+            document.getElementById('load-more-btn').addEventListener('click', loadMoreItems);
+        });
+        
+        function filterItems() {
+            const searchTerm = document.getElementById('item-search').value.toLowerCase();
+            const categoryFilter = document.getElementById('category-filter').value;
+            const priceFilter = document.getElementById('price-filter').value;
+            
+            allItems.forEach(item => {
+                const game = item.dataset.game;
+                const category = item.dataset.category;
+                const price = parseFloat(item.dataset.price);
+                const name = item.querySelector('h3').textContent.toLowerCase();
+                
+                let show = true;
+                
+                // Game filter
+                if (currentGame && game !== currentGame) {
+                    show = false;
+                }
+                
+                // Search filter
+                if (searchTerm && !name.includes(searchTerm)) {
+                    show = false;
+                }
+                
+                // Category filter
+                if (categoryFilter && category !== categoryFilter) {
+                    show = false;
+                }
+                
+                // Price filter
+                if (priceFilter) {
+                    const [min, max] = priceFilter.split('-').map(p => p === '+' ? Infinity : parseFloat(p));
+                    if (max && (price < min || price > max)) {
+                        show = false;
+                    } else if (!max && price < min) {
+                        show = false;
+                    }
+                }
+                
+                item.style.display = show ? 'block' : 'none';
+            });
+            
+            displayedItems = 0;
+            loadMoreItems();
+        }
+        
+        function updateView() {
+            const grid = document.getElementById('shop-grid');
+            if (currentView === 'list') {
+                grid.style.gridTemplateColumns = '1fr';
+                allItems.forEach(item => {
+                    item.style.display = 'flex';
+                    item.style.alignItems = 'center';
+                    item.style.gap = '1rem';
+                });
+            } else {
+                grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+                allItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+            }
+        }
+        
+        function loadMoreItems() {
+            const visibleItems = Array.from(allItems).filter(item => item.style.display !== 'none');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            
+            let count = 0;
+            for (let i = displayedItems; i < visibleItems.length && count < itemsPerPage; i++) {
+                visibleItems[i].style.opacity = '1';
+                visibleItems[i].style.transform = 'translateY(0)';
+                count++;
+            }
+            
+            displayedItems += count;
+            
+            if (displayedItems >= visibleItems.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+        }
+        
+        // URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameParam = urlParams.get('game');
+        if (gameParam) {
+            currentGame = gameParam;
+            document.getElementById('game-selector').value = gameParam;
+            filterItems();
+        }
+        
+        // Initial load
+        setTimeout(() => {
+            loadMoreItems();
+        }, 100);
+    </script>
+</body>
+</html>

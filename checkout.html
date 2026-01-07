@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Checkout - Silvar.gg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <meta name="color-scheme" content="light dark">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Frosted Glass Header -->
+    <header class="frosted-header">
+        <nav class="main-nav">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 5 L50 15 L50 45 L30 55 L10 45 L10 15 Z" fill="#4c7fe8" stroke="#ff57a6" stroke-width="2"/>
+                    </svg>
+                    <span>Silvar.gg</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <span class="checkout-badge">💳 SECURE CHECKOUT</span>
+            </div>
+            
+            <div class="nav-right">
+                <div class="balance-display" id="balance-display">
+                    <span id="balance-amount">0</span> 💎
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Checkout Header -->
+        <section class="checkout-header">
+            <h1>💳 Secure Checkout</h1>
+            <p>Complete your purchase safely with Stripe</p>
+            <div class="security-badges">
+                <span class="badge">🔒 SSL Secured</span>
+                <span class="badge">💳 Stripe Payment</span>
+                <span class="badge">✅ Instant Delivery</span>
+            </div>
+        </section>
+
+        <!-- Checkout Content -->
+        <section class="checkout-content">
+            <div class="checkout-grid">
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    <div class="order-items" id="order-items">
+                        <!-- Items will be loaded here -->
+                    </div>
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Processing Fee:</span>
+                            <span id="processing-fee">$0.00</span>
+                        </div>
+                        <div class="total-row total">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                        <div class="total-row sapphire">
+                            <span>Or pay with:</span>
+                            <span id="sapphire-cost">0 💎</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <div class="payment-form">
+                    <h2>Payment Information</h2>
+                    
+                    <!-- Payment Method Selection -->
+                    <div class="payment-methods">
+                        <label class="payment-method">
+                            <input type="radio" name="payment-method" value="stripe" checked>
+                            <div class="method-content">
+                                <span class="method-icon">💳</span>
+                                <span class="method-name">Credit/Debit Card</span>
+                                <span class="method-fee">+5% fee</span>
+                            </div>
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment-method" value="paypal">
+                            <div class="method-content">
+                                <span class="method-icon">🅿️</span>
+                                <span class="method-name">PayPal</span>
+                                <span class="method-fee">+6% fee</span>
+                            </div>
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment-method" value="apple-pay">
+                            <div class="method-content">
+                                <span class="method-icon">🍎</span>
+                                <span class="method-name">Apple Pay</span>
+                                <span class="method-fee">+5% fee</span>
+                            </div>
+                        </label>
+                        <label class="payment-method sapphire-method">
+                            <input type="radio" name="payment-method" value="sapphire">
+                            <div class="method-content">
+                                <span class="method-icon">💎</span>
+                                <span class="method-name">Sapphire Balance</span>
+                                <span class="method-fee">No fee!</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Stripe Card Form -->
+                    <div id="stripe-form" class="stripe-form">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Card Number</label>
+                            <div id="card-number" class="stripe-element"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Expiry</label>
+                                <div id="card-expiry" class="stripe-element"></div>
+                            </div>
+                            <div class="form-group half">
+                                <label>CVC</label>
+                                <div id="card-cvc" class="stripe-element"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Cardholder Name</label>
+                            <input type="text" id="cardholder-name" placeholder="Name on card" required>
+                        </div>
+                    </div>
+
+                    <!-- Sapphire Payment Form -->
+                    <div id="sapphire-form" class="sapphire-form" style="display: none;">
+                        <div class="sapphire-balance">
+                            <h3>Your Sapphire Balance</h3>
+                            <div class="balance-display">
+                                <span id="current-balance">0</span> 💎
+                            </div>
+                            <p class="balance-note">You need <span id="required-balance">0</span> 💎 for this purchase</p>
+                        </div>
+                        <div class="insufficient-balance" id="insufficient-balance" style="display: none;">
+                            <p class="error">Insufficient balance!</p>
+                            <button class="btn secondary" onclick="window.location.href='profile.html'">Add Balance</button>
+                        </div>
+                    </div>
+
+                    <!-- Billing Address -->
+                    <div class="billing-address">
+                        <h3>Billing Address</h3>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="billing-name" placeholder="Full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" id="billing-address" placeholder="Street address" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group third">
+                                <label>City</label>
+                                <input type="text" id="billing-city" placeholder="City" required>
+                            </div>
+                            <div class="form-group third">
+                                <label>State</label>
+                                <input type="text" id="billing-state" placeholder="State" required>
+                            </div>
+                            <div class="form-group third">
+                                <label>ZIP</label>
+                                <input type="text" id="billing-zip" placeholder="ZIP code" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select id="billing-country" required>
+                                <option value="">Select country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="terms">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms-agreed" required>
+                            <span>I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></span>
+                        </label>
+                    </div>
+
+                    <!-- Pay Button -->
+                    <button class="btn primary pay-btn" id="pay-button" disabled>
+                        <span id="pay-button-text">Complete Order</span>
+                        <span id="pay-button-amount">$0.00</span>
+                    </button>
+                    
+                    <div class="payment-note">
+                        <p>🔒 Your payment information is secure and encrypted</p>
+                        <p>⚡ Items will be delivered instantly after payment</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Indicators -->
+        <section class="trust-indicators">
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">🛡️</div>
+                    <h3>100% Secure</h3>
+                    <p>256-bit SSL encryption protects your data</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">⚡</div>
+                    <h3>Instant Delivery</h3>
+                    <p>Get your items delivered in minutes</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">💯</div>
+                    <h3>Money Back Guarantee</h3>
+                    <p>Full refund if not delivered within 1 hour</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🎯</div>
+                    <h3>24/7 Support</h3>
+                    <p>Always here to help with any issues</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Secure Checkout</h3>
+                <p>Your payment is processed securely with Stripe, the world's leading payment processor.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Need Help?</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Support</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Why Choose Silvar.gg?</h3>
+                <ul>
+                    <li>✅ Instant delivery guaranteed</li>
+                    <li>✅ Best prices on the market</li>
+                    <li>✅ 24/7 customer support</li>
+                    <li>✅ Thousands of happy customers</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© <span id="year"><script>document.write(new Date().getFullYear())</script></span> Silvar.gg – Secure payments powered by Stripe</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Checkout functionality
+        class CheckoutManager {
+            constructor() {
+                this.stripe = Stripe('pk_test_your_stripe_key_here'); // Replace with your Stripe key
+                this.elements = this.stripe.elements();
+                this.cart = JSON.parse(localStorage.getItem('silvar_cart') || '[]');
+                this.balance = parseInt(localStorage.getItem('silvar_balance') || '0');
+                this.init();
+            }
+            
+            init() {
+                this.loadOrderSummary();
+                this.initStripeElements();
+                this.initPaymentMethods();
+                this.initFormValidation();
+                this.updatePayButton();
+            }
+            
+            loadOrderSummary() {
+                const itemsContainer = document.getElementById('order-items');
+                const subtotalEl = document.getElementById('subtotal');
+                const processingFeeEl = document.getElementById('processing-fee');
+                const totalEl = document.getElementById('total');
+                const sapphireCostEl = document.getElementById('sapphire-cost');
+                
+                if (this.cart.length === 0) {
+                    itemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                    return;
+                }
+                
+                // Calculate totals
+                const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const processingFee = subtotal * 0.05; // 5% processing fee
+                const total = subtotal + processingFee;
+                const sapphireCost = Math.ceil(total * 50); // Convert to sapphires
+                
+                // Display items
+                itemsContainer.innerHTML = this.cart.map(item => `
+                    <div class="order-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>${item.game || 'General'}</p>
+                        </div>
+                        <div class="item-price">
+                            <span>$${item.price} x ${item.quantity}</span>
+                            <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Update totals
+                subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+                processingFeeEl.textContent = `$${processingFee.toFixed(2)}`;
+                totalEl.textContent = `$${total.toFixed(2)}`;
+                sapphireCostEl.textContent = `${sapphireCost} 💎`;
+                
+                // Store totals for later use
+                this.totals = { subtotal, processingFee, total, sapphireCost };
+                
+                // Update sapphire balance display
+                document.getElementById('current-balance').textContent = this.balance;
+                document.getElementById('required-balance').textContent = sapphireCost;
+                
+                // Check if user has enough sapphires
+                const hasEnoughSapphires = this.balance >= sapphireCost;
+                document.getElementById('insufficient-balance').style.display = hasEnoughSapphires ? 'none' : 'block';
+            }
+            
+            initStripeElements() {
+                // Create Stripe elements
+                const cardNumber = this.elements.create('cardNumber', {
+                    style: {
+                        base: {
+                            fontSize: '16px',
+                            color: '#424770',
+                            '::placeholder': {
+                                color: '#aab7c4',
+                            },
+                        },
+                        invalid: {
+                            color: '#9e2146',
+                        },
+                    },
+                });
+                
+                const cardExpiry = this.elements.create('cardExpiry', {
+                    style: {
+                        base: {
+                            fontSize: '16px',
+                            color: '#424770',
+                            '::placeholder': {
+                                color: '#aab7c4',
+                            },
+                        },
+                    },
+                });
+                
+                const cardCvc = this.elements.create('cardCvc', {
+                    style: {
+                        base: {
+                            fontSize: '16px',
+                            color: '#424770',
+                            '::placeholder': {
+                                color: '#aab7c4',
+                            },
+                        },
+                    },
+                });
+                
+                // Mount elements
+                cardNumber.mount('#card-number');
+                cardExpiry.mount('#card-expiry');
+                cardCvc.mount('#card-cvc');
+                
+                // Handle element events
+                cardNumber.on('change', (event) => {
+                    this.updatePayButton();
+                });
+            }
+            
+            initPaymentMethods() {
+                document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        const method = e.target.value;
+                        
+                        // Show/hide forms based on selection
+                        document.getElementById('stripe-form').style.display = method === 'stripe' ? 'block' : 'none';
+                        document.getElementById('sapphire-form').style.display = method === 'sapphire' ? 'block' : 'none';
+                        
+                        // Update pay button
+                        this.updatePayButton();
+                    });
+                });
+            }
+            
+            initFormValidation() {
+                const requiredFields = document.querySelectorAll('input[required], select[required]');
+                const termsCheckbox = document.getElementById('terms-agreed');
+                
+                [...requiredFields, termsCheckbox].forEach(field => {
+                    field.addEventListener('change', () => this.updatePayButton());
+                    field.addEventListener('input', () => this.updatePayButton());
+                });
+            }
+            
+            updatePayButton() {
+                const payButton = document.getElementById('pay-button');
+                const payButtonText = document.getElementById('pay-button-text');
+                const payButtonAmount = document.getElementById('pay-button-amount');
+                const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+                
+                let isValid = false;
+                
+                if (selectedMethod === 'sapphire') {
+                    // Check sapphire balance
+                    const hasEnoughSapphires = this.balance >= this.totals.sapphireCost;
+                    isValid = hasEnoughSapphires && this.isFormValid();
+                    payButtonText.textContent = 'Pay with Sapphires';
+                    payButtonAmount.textContent = `${this.totals.sapphireCost} 💎`;
+                } else {
+                    // Check Stripe form validity
+                    isValid = this.isFormValid();
+                    payButtonText.textContent = 'Pay with Card';
+                    payButtonAmount.textContent = `$${this.totals.total.toFixed(2)}`;
+                }
+                
+                payButton.disabled = !isValid;
+                payButton.classList.toggle('disabled', !isValid);
+            }
+            
+            isFormValid() {
+                const requiredFields = document.querySelectorAll('input[required]:not([type="radio"])');
+                const termsAgreed = document.getElementById('terms-agreed').checked;
+                
+                const allFieldsFilled = Array.from(requiredFields).every(field => field.value.trim() !== '');
+                
+                return allFieldsFilled && termsAgreed;
+            }
+            
+            async processPayment() {
+                const selectedMethod = document.querySelector('input[name="payment-method"]:checked').value;
+                
+                if (selectedMethod === 'sapphire') {
+                    await this.processSapphirePayment();
+                } else {
+                    await this.processStripePayment();
+                }
+            }
+            
+            async processSapphirePayment() {
+                if (this.balance < this.totals.sapphireCost) {
+                    alert('Insufficient sapphire balance!');
+                    return;
+                }
+                
+                // Deduct sapphires
+                this.balance -= this.totals.sapphireCost;
+                localStorage.setItem('silvar_balance', this.balance.toString());
+                
+                // Record transaction
+                this.recordTransaction('spent', this.totals.sapphireCost, 'Purchase with sapphires');
+                
+                // Complete order
+                this.completeOrder('sapphire');
+            }
+            
+            async processStripePayment() {
+                const { paymentMethod, error } = await this.stripe.createPaymentMethod({
+                    type: 'card',
+                    card: this.elements.getElement('cardNumber'),
+                    billing_details: {
+                        name: document.getElementById('cardholder-name').value,
+                        email: document.getElementById('email').value,
+                        address: {
+                            line1: document.getElementById('billing-address').value,
+                            city: document.getElementById('billing-city').value,
+                            state: document.getElementById('billing-state').value,
+                            postal_code: document.getElementById('billing-zip').value,
+                            country: document.getElementById('billing-country').value,
+                        },
+                    },
+                });
+                
+                if (error) {
+                    alert('Payment failed: ' + error.message);
+                    return;
+                }
+                
+                // In a real implementation, you would send the paymentMethod.id to your server
+                // For this demo, we'll simulate a successful payment
+                this.completeOrder('stripe');
+            }
+            
+            completeOrder(paymentMethod) {
+                // Save purchase history
+                const purchase = {
+                    id: Date.now(),
+                    items: [...this.cart],
+                    total: this.totals.total,
+                    sapphireCost: this.totals.sapphireCost,
+                    paymentMethod: paymentMethod,
+                    date: new Date().toISOString(),
+                    status: 'completed'
+                };
+                
+                const history = JSON.parse(localStorage.getItem('silvar_purchases') || '[]');
+                history.push(purchase);
+                localStorage.setItem('silvar_purchases', JSON.stringify(history));
+                
+                // Add items to inventory
+                const inventory = JSON.parse(localStorage.getItem('silvar_inventory') || '[]');
+                this.cart.forEach(cartItem => {
+                    const existing = inventory.find(inv => inv.name === cartItem.name);
+                    if (existing) {
+                        existing.quantity += cartItem.quantity;
+                    } else {
+                        inventory.push({
+                            ...cartItem,
+                            quantity: cartItem.quantity,
+                            acquired: new Date().toISOString(),
+                            source: 'purchase'
+                        });
+                    }
+                });
+                localStorage.setItem('silvar_inventory', JSON.stringify(inventory));
+                
+                // Clear cart
+                localStorage.removeItem('silvar_cart');
+                
+                // Show success message
+                alert(`Payment successful! ${this.totals.sapphireCost} sapphires deducted. Your items have been added to your inventory.`);
+                
+                // Redirect to profile
+                window.location.href = 'profile.html';
+            }
+            
+            recordTransaction(type, amount, description) {
+                const history = JSON.parse(localStorage.getItem('silvar_balance_history') || '[]');
+                history.push({
+                    type: type,
+                    amount: amount,
+                    description: description,
+                    date: new Date().toISOString()
+                });
+                localStorage.setItem('silvar_balance_history', JSON.stringify(history));
+            }
+        }
+        
+        // Initialize checkout
+        document.addEventListener('DOMContentLoaded', () => {
+            window.checkoutManager = new CheckoutManager();
+            
+            // Pay button click handler
+            document.getElementById('pay-button').addEventListener('click', () => {
+                window.checkoutManager.processPayment();
+            });
+        });
+    </script>
+</body>
+</html>

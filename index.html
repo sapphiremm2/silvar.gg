@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Silvar.gg – MM2 & Roblox Items</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <meta name="color-scheme" content="light dark">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <!-- Frosted Glass Header -->
+    <header class="frosted-header">
+        <nav class="main-nav">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 8L20 16L12 24L4 16L12 8Z" fill="var(--accent)" stroke="var(--accent2)" stroke-width="1.5"/>
+                        <text x="28" y="20" fill="var(--fg)" font-family="Inter, sans-serif" font-size="18" font-weight="900">Silvar.gg</text>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <select class="game-selector" id="game-selector">
+                    <option value="">Select Game</option>
+                    <option value="murder-mystery" selected>Murder Mystery 2</option>
+                    <option value="grow-garden">Grow A Garden</option>
+                    <option value="steal-brainrot">Steal A Brainrot</option>
+                    <option value="blade-ball">Blade Ball</option>
+                </select>
+            </div>
+            
+            <div class="nav-right">
+                <div class="balance-display" id="balance-display">
+                    <span id="balance-amount">0</span> 💎
+                    <button class="btn small" data-action="add-balance">+</button>
+                </div>
+                <div id="auth-section">
+                    <button data-action="login">Login</button>
+                    <button data-action="register">Register</button>
+                </div>
+                <div class="cart-section">
+                    <button class="cart-btn" data-action="view-cart">
+                        🛒 <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-head">
+                <svg width="600" height="80" viewBox="0 0 420 80" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="var(--accent)"/>
+                            <stop offset="100%" stop-color="var(--accent2)"/>
+                        </linearGradient>
+                    </defs>
+                    <text x="210" y="45" text-anchor="middle" fill="url(#g)" font-size="48" font-family="Inter, sans-serif" font-weight="900">MM2 & Roblox Items</text>
+                    <text x="210" y="72" text-anchor="middle" fill="url(#g)" font-size="22" font-family="Inter, sans-serif" font-weight="700">Instant Delivery</text>
+                </svg>
+            </div>
+            
+            <div class="hero-content">
+                <p class="hero-subtitle">Trusted, fast, and cheap. Open blind boxes or buy outright—your items delivered in minutes.</p>
+                <div class="hero-actions">
+                    <button class="btn primary" onclick="document.getElementById('shop').scrollIntoView()">Browse Shop</button>
+                    <button class="btn secondary" onclick="document.getElementById('blind').scrollIntoView()">Open Blind Boxes</button>
+                    <button class="btn accent" data-action="spin-wheel">🎡 Spin Wheel</button>
+                </div>
+                <div class="coupon">
+                    <strong>Creator?</strong> <a href="creator-program.html">Apply for our partnership program</a> and earn <strong>$0.50 per 1K views!</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Tabs -->
+        <section class="game-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-game="murder-mystery">Murder Mystery 2</button>
+                <button class="tab-btn" data-game="grow-garden">Grow A Garden</button>
+                <button class="tab-btn" data-game="steal-brainrot">Steal A Brainrot</button>
+                <button class="tab-btn" data-game="blade-ball">Blade Ball</button>
+            </div>
+        </section>
+
+        <!-- Blind Boxes Section -->
+        <section id="blind" class="blind">
+            <h2>🎲 Blind Boxes</h2>
+            <p>Spin for MM2, Grow a Garden, Steal a Brainrot, and more. Every box guarantees an item worth at least the price you pay!</p>
+            
+            <div class="box-grid">
+                <!-- Mystery Box $1 -->
+                <div class="box">
+                    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <defs><filter id="b1"><feDropShadow dx="3" dy="4" stdDeviation="3" flood="var(--accent2)" flood-opacity=".4"/></filter></defs>
+                        <g filter="url(#b1)">
+                            <path d="M60 15 L100 35 L100 85 L60 105 L20 85 L20 35 Z" fill="var(--accent)"/>
+                            <path d="M20 35 L60 55 L100 35 L60 15 Z" fill="rgba(255,255,255,.25)"/>
+                            <path d="M60 55 L60 105 L20 85 Z" fill="rgba(0,0,0,.15)"/>
+                            <path d="M60 55 L100 35 L100 85 L60 105 Z" fill="rgba(0,0,0,.25)"/>
+                        </g>
+                        <g stroke="rgba(255,255,255,.4)" stroke-width=".5"><line x1="40" y1="25" x2="80" y2="45"/><line x1="80" y1="25" x2="40" y2="45"/></g>
+                    </svg>
+                    <h3>Mystery Box $1</h3>
+                    <span class="tag">Common – Legendary</span>
+                    <button class="btn secondary" data-action="open-blindbox" data-box='{"name":"Mystery Box","price":1,"game":"murder-mystery"}'>Open for $1</button>
+                </div>
+
+                <!-- Godly Chance $3 -->
+                <div class="box">
+                    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <defs><filter id="b2"><feDropShadow dx="3" dy="4" stdDeviation="3" flood="var(--accent)" flood-opacity=".4"/></filter></defs>
+                        <g filter="url(#b2)">
+                            <path d="M60 15 L100 35 L100 85 L60 105 L20 85 L20 35 Z" fill="var(--accent2)"/>
+                            <path d="M20 35 L60 55 L100 35 L60 15 Z" fill="rgba(255,255,255,.25)"/>
+                            <path d="M60 55 L60 105 L20 85 Z" fill="rgba(0,0,0,.15)"/>
+                            <path d="M60 55 L100 35 L100 85 L60 105 Z" fill="rgba(0,0,0,.25)"/>
+                        </g>
+                        <g stroke="rgba(255,255,255,.4)" stroke-width=".5"><line x1="40" y1="25" x2="80" y2="45"/><line x1="80" y1="25" x2="40" y2="45"/></g>
+                    </svg>
+                    <h3>Godly Chance $3</h3>
+                    <span class="tag">Rare – Godly</span>
+                    <button class="btn secondary" data-action="open-blindbox" data-box='{"name":"Godly Chance","price":3,"game":"murder-mystery"}'>Open for $3</button>
+                </div>
+
+                <!-- Chroma Rush $5 -->
+                <div class="box">
+                    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <defs><filter id="b3"><feDropShadow dx="3" dy="4" stdDeviation="4" flood="var(--accent2)" flood-opacity=".6"/></filter></defs>
+                        <g filter="url(#b3)">
+                            <path d="M60 15 L100 35 L100 85 L60 105 L20 85 L20 35 Z" fill="url(#chroma)"/>
+                            <path d="M20 35 L60 55 L100 35 L60 15 Z" fill="rgba(255,255,255,.35)"/>
+                            <path d="M60 55 L60 105 L20 85 Z" fill="rgba(0,0,0,.15)"/>
+                            <path d="M60 55 L100 35 L100 85 L60 105 Z" fill="rgba(0,0,0,.25)"/>
+                        </g>
+                        <defs>
+                            <linearGradient id="chroma" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="var(--accent)"/>
+                                <stop offset="100%" stop-color="var(--accent2)"/>
+                            </linearGradient>
+                        </defs>
+                        <g stroke="rgba(255,255,255,.4)" stroke-width=".5"><line x1="40" y1="25" x2="80" y2="45"/><line x1="80" y1="25" x2="40" y2="45"/></g>
+                    </svg>
+                    <h3>Chroma Rush $5</h3>
+                    <span class="tag">Epic – Chroma</span>
+                    <button class="btn secondary" data-action="open-blindbox" data-box='{"name":"Chroma Rush","price":5,"game":"murder-mystery"}'>Open for $5</button>
+                </div>
+            </div>
+            
+            <button class="btn" data-action="spin-wheel">🎁 SPIN THE WHEEL FOR FREE ITEMS</button>
+        </section>
+
+        <!-- Shop Section -->
+        <section id="shop" class="pricing">
+            <h2>Instant Buy</h2>
+            <div class="item-grid">
+                <div class="card">
+                    <img src="https://bloxcart.com/_next/image/?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0815%2F2068%2F9482%2Ffiles%2F43.1.png%3Fv%3D1715367845&w=640&q=75" width="160" height="160" style="object-fit:contain" alt="Luger">
+                    <h3>Luger</h3>
+                    <p>Classic MM2 godly</p>
+                    <span class="price">$2.50</span>
+                    <button class="btn" data-action="add-to-cart" data-item='{"id":"luger","name":"Luger","price":2.50,"image":"https://bloxcart.com/_next/image/?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0815%2F2068%2F9482%2Ffiles%2F43.1.png%3Fv%3D1715367845&w=640&q=75","game":"murder-mystery"}'>Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://bloxcart.com/_next/image/?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0815%2F2068%2F9482%2Ffiles%2F74.1.png%3Fv%3D1715366768%3Fformat%3Dwebp&w=1920&q=75" width="160" height="160" style="object-fit:contain" alt="Chroma Laser">
+                    <h3>Chroma Laser</h3>
+                    <p>Shiny rainbow laser</p>
+                    <span class="price">$8.00</span>
+                    <button class="btn" data-action="add-to-cart" data-item='{"id":"chroma-laser","name":"Chroma Laser","price":8.00,"image":"https://bloxcart.com/_next/image/?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0815%2F2068%2F9482%2Ffiles%2F74.1.png%3Fv%3D1715366768%3Fformat%3Dwebp&w=1920&q=75","game":"murder-mystery"}'>Add to Cart</button>
+                </div>
+                <div class="card">
+                    <img src="https://bloxcart.com/_next/image/?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0815%2F2068%2F9482%2Ffiles%2F29.1.png%3Fv%3D1715368344%3Fformat%3Dwebp&w=1920&q=75" width="160" height="160" style="object-fit:contain" alt="Slasher">
+                    <h3>Slasher</h3>
+                    <p>Knife</p>
+                    <span class="price">$3.00</span>
+                    <button class="btn" data-action="add-to-cart" data-item='{"id":"slasher","name":"Slasher","price":3.00,"image":"https://bloxcart.com/_next/image/?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0815%2F2068%2F9482%2Ffiles%2F29.1.png%3Fv%3D1715368344%3Fformat%3Dwebp&w=1920&q=75","game":"murder-mystery"}'>Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq">
+            <h2>FAQ</h2>
+            <details>
+                <summary>Is this legit?</summary>
+                <p>Yes. We've completed 5,000+ trades with 0 bans. All trades happen through official Roblox private servers.</p>
+            </details>
+            <details>
+                <summary>How fast is delivery?</summary>
+                <p>Usually under 5 minutes. Max 30 minutes during high traffic.</p>
+            </details>
+            <details>
+                <summary>Can I get a refund?</summary>
+                <p>Refunds available if we haven't delivered your item within 1 hour.</p>
+            </details>
+        </section>
+
+        <!-- Creator Program CTA -->
+        <section class="creator-program">
+            <div class="creator-content">
+                <h2>🎨 Join Our Creator Program</h2>
+                <p>Are you a content creator? Partner with Silvar.gg and earn money promoting our marketplace!</p>
+                <div class="creator-stats">
+                    <div class="stat">
+                        <span class="stat-number">$0.50</span>
+                        <span class="stat-label">Per 1,000 views</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Follower bonus</span>
+                    </div>
+                </div>
+                <button class="btn primary" onclick="window.location.href='creator-program.html'">Apply Now</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© <span id="year"></span> Silvar.gg – Not affiliated with Roblox Corp.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

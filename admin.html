@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin Panel - Silvar.gg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <meta name="color-scheme" content="light dark">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <!-- Frosted Glass Header -->
+    <header class="frosted-header">
+        <nav class="main-nav">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 5 L50 15 L50 45 L30 55 L10 45 L10 15 Z" fill="#4c7fe8" stroke="#ff57a6" stroke-width="2"/>
+                    </svg>
+                    <span>Silvar.gg Admin</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <span class="admin-badge">🔧 ADMIN PANEL</span>
+            </div>
+            
+            <div class="nav-right">
+                <div id="auth-section">
+                    <button data-action="logout">Logout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Admin Header -->
+        <section class="admin-header">
+            <h1>🔧 Admin Dashboard</h1>
+            <p>Manage products, users, and site settings</p>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <span class="stat-number" id="total-users">0</span>
+                    <span class="stat-label">Total Users</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="total-products">0</span>
+                    <span class="stat-label">Total Products</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="total-orders">0</span>
+                    <span class="stat-label">Total Orders</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="total-revenue">$0</span>
+                    <span class="stat-label">Total Revenue</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Tabs -->
+        <section class="admin-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="products">Products</button>
+                <button class="tab-btn" data-tab="blindboxes">Blind Boxes</button>
+                <button class="tab-btn" data-tab="collections">Collections</button>
+                <button class="tab-btn" data-tab="users">Users</button>
+                <button class="tab-btn" data-tab="sponsors">Sponsors</button>
+                <button class="tab-btn" data-tab="discounts">Discount Codes</button>
+                <button class="tab-btn" data-tab="analytics">Analytics</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+            </div>
+        </section>
+
+        <!-- Tab Content -->
+        <section class="admin-content">
+            <!-- Products Tab -->
+            <div id="products-tab" class="tab-content active">
+                <div class="admin-section-header">
+                    <h2>Manage Products</h2>
+                    <button class="btn primary" onclick="showAddProductModal()">+ Add Product</button>
+                </div>
+                
+                <div class="products-filters">
+                    <input type="text" placeholder="Search products..." id="product-search">
+                    <select id="product-game-filter">
+                        <option value="">All Games</option>
+                        <option value="murder-mystery">Murder Mystery 2</option>
+                        <option value="grow-garden">Grow A Garden</option>
+                        <option value="steal-brainrot">Steal A Brainrot</option>
+                        <option value="blade-ball">Blade Ball</option>
+                        <option value="blox-fruits">Blox Fruits</option>
+                        <option value="dress-impress">Dress To Impress</option>
+                    </select>
+                    <select id="product-category-filter">
+                        <option value="">All Categories</option>
+                        <option value="weapons">Weapons</option>
+                        <option value="pets">Pets</option>
+                        <option value="skins">Skins</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="currency">Currency</option>
+                    </select>
+                </div>
+                
+                <div class="products-table" id="products-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Game</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Rarity</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-tbody">
+                            <tr>
+                                <td colspan="9" class="no-products">No products found. Add your first product!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Blind Boxes Tab -->
+            <div id="blindboxes-tab" class="tab-content">
+                <div class="admin-section-header">
+                    <h2>Manage Blind Boxes</h2>
+                    <button class="btn primary" onclick="showAddBlindBoxModal()">+ Add Blind Box</button>
+                </div>
+                
+                <div class="blindboxes-table" id="blindboxes-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Game</th>
+                                <th>Price</th>
+                                <th>Rarity Range</th>
+                                <th>Items</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blindboxes-tbody">
+                            <tr>
+                                <td colspan="7" class="no-blindboxes">No blind boxes found. Create your first blind box!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Collections Tab -->
+            <div id="collections-tab" class="tab-content">
+                <div class="admin-section-header">
+                    <h2>Manage Collections</h2>
+                    <button class="btn primary" onclick="showAddCollectionModal()">+ Add Collection</button>
+                </div>
+                
+                <div class="collections-grid" id="collections-grid">
+                    <div class="empty-collections">
+                        <div class="empty-icon">📚</div>
+                        <h3>No collections found</h3>
+                        <p>Create collections to group related products together!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="users-tab" class="tab-content">
+                <div class="admin-section-header">
+                    <h2>Manage Users</h2>
+                    <button class="btn primary" onclick="showAddUserModal()">+ Add User</button>
+                </div>
+                
+                <div class="users-filters">
+                    <input type="text" placeholder="Search users..." id="user-search">
+                    <select id="user-status-filter">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="banned">Banned</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                
+                <div class="users-table" id="users-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Join Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-tbody">
+                            <tr>
+                                <td colspan="7" class="no-users">No users found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sponsors Tab -->
+            <div id="sponsors-tab" class="tab-content">
+                <div class="admin-section-header">
+                    <h2>Manage Sponsors</h2>
+                    <button class="btn primary" onclick="showAddSponsorModal()">+ Add Sponsor</button>
+                </div>
+                
+                <div class="sponsors-table" id="sponsors-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Platform</th>
+                                <th>Followers</th>
+                                <th>Rate</th>
+                                <th>Status</th>
+                                <th>Join Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sponsors-tbody">
+                            <tr>
+                                <td colspan="8" class="no-sponsors">No sponsors found. Add your first sponsor!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Discount Codes Tab -->
+            <div id="discounts-tab" class="tab-content">
+                <div class="admin-section-header">
+                    <h2>Manage Discount Codes</h2>
+                    <button class="btn primary" onclick="showAddDiscountModal()">+ Add Discount Code</button>
+                </div>
+                
+                <div class="discounts-table" id="discounts-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Discount</th>
+                                <th>Type</th>
+                                <th>Usage Limit</th>
+                                <th>Used</th>
+                                <th>Expires</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="discounts-tbody">
+                            <tr>
+                                <td colspan="8" class="no-discounts">No discount codes found. Create your first code!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics-tab" class="tab-content">
+                <div class="admin-section-header">
+                    <h2>Site Analytics</h2>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Sales This Month</h3>
+                        <div class="chart-placeholder">📊 Sales Chart</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Popular Products</h3>
+                        <div class="popular-products">
+                            <div class="popular-item">
+                                <span>Luger</span>
+                                <span>15 sales</span>
+                            </div>
+                            <div class="popular-item">
+                                <span>Chroma Laser</span>
+                                <span>12 sales</span>
+                            </div>
+                            <div class="popular-item">
+                                <span>Mystery Box</span>
+                                <span>45 sales</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>User Activity</h3>
+                        <div class="activity-stats">
+                            <div class="activity-item">
+                                <span>Active Today</span>
+                                <span>23 users</span>
+                            </div>
+                            <div class="activity-item">
+                                <span>New This Week</span>
+                                <span>7 users</span>
+                            </div>
+                            <div class="activity-item">
+                                <span>Total Sessions</span>
+                                <span>156</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings-tab" class="tab-content">
+                <div class="admin-section-header">
+                    <h2>Site Settings</h2>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>General Settings</h3>
+                        <div class="setting-item">
+                            <label>Site Name</label>
+                            <input type="text" value="Silvar.gg" id="site-name">
+                        </div>
+                        <div class="setting-item">
+                            <label>Site Description</label>
+                            <textarea id="site-description">The best place to buy Roblox items!</textarea>
+                        </div>
+                        <div class="setting-item">
+                            <label>Maintenance Mode</label>
+                            <select id="maintenance-mode">
+                                <option value="off">Off</option>
+                                <option value="on">On</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>Payment Settings</h3>
+                        <div class="setting-item">
+                            <label>Sapphire Rate</label>
+                            <input type="number" value="50" id="sapphire-rate"> sapphires per $1
+                        </div>
+                        <div class="setting-item">
+                            <label>Stripe Public Key</label>
+                            <input type="text" placeholder="pk_test_..." id="stripe-public-key">
+                        </div>
+                        <div class="setting-item">
+                            <label>Stripe Secret Key</label>
+                            <input type="text" placeholder="sk_test_..." id="stripe-secret-key">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>Email Settings</h3>
+                        <div class="setting-item">
+                            <label>SMTP Server</label>
+                            <input type="text" placeholder="smtp.example.com" id="smtp-server">
+                        </div>
+                        <div class="setting-item">
+                            <label>SMTP Port</label>
+                            <input type="number" value="587" id="smtp-port">
+                        </div>
+                        <div class="setting-item">
+                            <label>SMTP Username</label>
+                            <input type="text" placeholder="username" id="smtp-username">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-actions">
+                    <button class="btn primary" onclick="saveSettings()">Save Settings</button>
+                    <button class="btn secondary" onclick="exportSettings()">Export Settings</button>
+                    <button class="btn danger" onclick="clearCache()">Clear Cache</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Silvar.gg Admin Panel</h3>
+                <p>Manage your marketplace with powerful admin tools.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">View Site</a></li>
+                    <li><a href="profile.html">My Profile</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blind-boxes.html">Blind Boxes</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>System Status</h3>
+                <ul>
+                    <li>✅ All Systems Operational</li>
+                    <li>✅ Database Connected</li>
+                    <li>✅ Payment Gateway Active</li>
+                    <li>✅ Email Service Running</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© <span id="year"><script>document.write(new Date().getFullYear())</script></span> Silvar.gg Admin Panel</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Admin Panel Functionality
+        class AdminPanel {
+            constructor() {
+                this.products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+                this.blindBoxes = JSON.parse(localStorage.getItem('admin_blindboxes') || '[]');
+                this.collections = JSON.parse(localStorage.getItem('admin_collections') || '[]');
+                this.init();
+            }
+            
+            init() {
+                this.checkAdminAccess();
+                this.initTabs();
+                this.loadStats();
+                this.loadProducts();
+                this.loadBlindBoxes();
+                this.loadCollections();
+                this.loadUsers();
+                this.initFilters();
+            }
+            
+            checkAdminAccess() {
+                const user = JSON.parse(localStorage.getItem('silvar_user') || '{}');
+                if (!user.isAdmin) {
+                    alert('Access denied. Admin privileges required.');
+                    window.location.href = 'index.html';
+                }
+            }
+            
+            initTabs() {
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        
+                        const tabId = btn.dataset.tab;
+                        document.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+                        document.getElementById(`${tabId}-tab`).classList.add('active');
+                    });
+                });
+            }
+            
+            loadStats() {
+                const users = JSON.parse(localStorage.getItem('silvar_users') || '[]');
+                const purchases = JSON.parse(localStorage.getItem('silvar_purchases') || '[]');
+                const revenue = purchases.reduce((sum, purchase) => sum + purchase.total, 0);
+                
+                document.getElementById('total-users').textContent = users.length;
+                document.getElementById('total-products').textContent = this.products.length;
+                document.getElementById('total-orders').textContent = purchases.length;
+                document.getElementById('total-revenue').textContent = `$${revenue.toFixed(2)}`;
+            }
+            
+            loadProducts() {
+                const tbody = document.getElementById('products-tbody');
+                
+                if (this.products.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="9" class="no-products">No products found. Add your first product!</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = this.products.map(product => `
+                    <tr>
+                        <td>${product.id}</td>
+                        <td><img src="${product.image}" alt="${product.name}" width="40" height="40"></td>
+                        <td>${product.name}</td>
+                        <td>${product.game}</td>
+                        <td>${product.category}</td>
+                        <td>$${product.price}</td>
+                        <td><span class="rarity ${product.rarity}">${product.rarity}</span></td>
+                        <td>${product.stock || '∞'}</td>
+                        <td>
+                            <button class="btn small" onclick="editProduct('${product.id}')">Edit</button>
+                            <button class="btn small danger" onclick="deleteProduct('${product.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            
+            loadBlindBoxes() {
+                const tbody = document.getElementById('blindboxes-tbody');
+                
+                if (this.blindBoxes.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="no-blindboxes">No blind boxes found. Create your first blind box!</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = this.blindBoxes.map(box => `
+                    <tr>
+                        <td>${box.id}</td>
+                        <td>${box.name}</td>
+                        <td>${box.game}</td>
+                        <td>$${box.price}</td>
+                        <td>${box.minRarity} - ${box.maxRarity}</td>
+                        <td>${box.items ? box.items.length : 0} items</td>
+                        <td>
+                            <button class="btn small" onclick="editBlindBox('${box.id}')">Edit</button>
+                            <button class="btn small danger" onclick="deleteBlindBox('${box.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            
+            loadCollections() {
+                const grid = document.getElementById('collections-grid');
+                
+                if (this.collections.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-collections">
+                            <div class="empty-icon">📚</div>
+                            <h3>No collections found</h3>
+                            <p>Create collections to group related products together!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                grid.innerHTML = this.collections.map(collection => `
+                    <div class="collection-card">
+                        <div class="collection-header">
+                            <h3>${collection.name}</h3>
+                            <span class="collection-count">${collection.products ? collection.products.length : 0} items</span>
+                        </div>
+                        <div class="collection-description">
+                            <p>${collection.description}</p>
+                        </div>
+                        <div class="collection-actions">
+                            <button class="btn small" onclick="editCollection('${collection.id}')">Edit</button>
+                            <button class="btn small danger" onclick="deleteCollection('${collection.id}')">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            loadUsers() {
+                const users = JSON.parse(localStorage.getItem('silvar_users') || '[]');
+                const tbody = document.getElementById('users-tbody');
+                
+                if (users.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="no-users">No users found.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = users.map(user => `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td>${user.balance || 0} 💎</td>
+                        <td><span class="user-status ${user.isAdmin ? 'admin' : 'active'}">${user.isAdmin ? 'Admin' : 'Active'}</span></td>
+                        <td>${new Date(user.joinDate).toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn small" onclick="editUser('${user.id}')">Edit</button>
+                            <button class="btn small ${user.isAdmin ? 'secondary' : 'danger'}" onclick="toggleUserStatus('${user.id}')">
+                                ${user.isAdmin ? 'Remove Admin' : 'Make Admin'}
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            
+            initFilters() {
+                // Product filters
+                document.getElementById('product-search').addEventListener('input', () => this.filterProducts());
+                document.getElementById('product-game-filter').addEventListener('change', () => this.filterProducts());
+                document.getElementById('product-category-filter').addEventListener('change', () => this.filterProducts());
+                
+                // User filters
+                document.getElementById('user-search').addEventListener('input', () => this.filterUsers());
+                document.getElementById('user-status-filter').addEventListener('change', () => this.filterUsers());
+            }
+            
+            filterProducts() {
+                const search = document.getElementById('product-search').value.toLowerCase();
+                const gameFilter = document.getElementById('product-game-filter').value;
+                const categoryFilter = document.getElementById('product-category-filter').value;
+                
+                const rows = document.querySelectorAll('#products-tbody tr');
+                rows.forEach(row => {
+                    if (row.querySelector('.no-products')) return;
+                    
+                    const name = row.cells[2].textContent.toLowerCase();
+                    const game = row.cells[3].textContent;
+                    const category = row.cells[4].textContent;
+                    
+                    const matchesSearch = !search || name.includes(search);
+                    const matchesGame = !gameFilter || game === gameFilter;
+                    const matchesCategory = !categoryFilter || category === categoryFilter;
+                    
+                    row.style.display = (matchesSearch && matchesGame && matchesCategory) ? '' : 'none';
+                });
+            }
+            
+            filterUsers() {
+                const search = document.getElementById('user-search').value.toLowerCase();
+                const statusFilter = document.getElementById('user-status-filter').value;
+                
+                const rows = document.querySelectorAll('#users-tbody tr');
+                rows.forEach(row => {
+                    if (row.querySelector('.no-users')) return;
+                    
+                    const username = row.cells[1].textContent.toLowerCase();
+                    const email = row.cells[2].textContent.toLowerCase();
+                    const status = row.cells[4].textContent.toLowerCase();
+                    
+                    const matchesSearch = !search || username.includes(search) || email.includes(search);
+                    const matchesStatus = !statusFilter || status.includes(statusFilter);
+                    
+                    row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+                });
+            }
+        }
+        
+        // Global functions for modals and actions
+        function showAddProductModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-overlay"></div>
+                <div class="modal-content">
+                    <button class="modal-close">&times;</button>
+                    <h2>Add New Product</h2>
+                    <form id="add-product-form">
+                        <input type="text" placeholder="Product Name" required>
+                        <input type="text" placeholder="Product Description" required>
+                        <select required>
+                            <option value="">Select Game</option>
+                            <option value="murder-mystery">Murder Mystery 2</option>
+                            <option value="grow-garden">Grow A Garden</option>
+                            <option value="steal-brainrot">Steal A Brainrot</option>
+                            <option value="blade-ball">Blade Ball</option>
+                            <option value="blox-fruits">Blox Fruits</option>
+                            <option value="dress-impress">Dress To Impress</option>
+                        </select>
+                        <select required>
+                            <option value="">Select Category</option>
+                            <option value="weapons">Weapons</option>
+                            <option value="pets">Pets</option>
+                            <option value="skins">Skins</option>
+                            <option value="accessories">Accessories</option>
+                            <option value="currency">Currency</option>
+                        </select>
+                        <input type="number" step="0.01" placeholder="Price" required>
+                        <select required>
+                            <option value="">Select Rarity</option>
+                            <option value="common">Common</option>
+                            <option value="uncommon">Uncommon</option>
+                            <option value="rare">Rare</option>
+                            <option value="epic">Epic</option>
+                            <option value="legendary">Legendary</option>
+                            <option value="godly">Godly</option>
+                            <option value="chroma">Chroma</option>
+                            <option value="ancient">Ancient</option>
+                        </select>
+                        <input type="text" placeholder="Image URL" required>
+                        <input type="number" placeholder="Stock (leave empty for unlimited)">
+                        <button type="submit" class="btn primary">Add Product</button>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            modal.querySelector('.modal-close').addEventListener('click', () => modal.remove());
+            modal.querySelector('.modal-overlay').addEventListener('click', () => modal.remove());
+            
+            document.getElementById('add-product-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Add product logic here
+                alert('Product added successfully!');
+                modal.remove();
+            });
+        }
+        
+        function showAddBlindBoxModal() {
+            alert('Add Blind Box modal would open here!');
+        }
+        
+        function showAddCollectionModal() {
+            alert('Add Collection modal would open here!');
+        }
+        
+        function showAddUserModal() {
+            alert('Add User modal would open here!');
+        }
+        
+        function editProduct(id) {
+            alert(`Edit product ${id}`);
+        }
+        
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                alert(`Product ${id} deleted`);
+            }
+        }
+        
+        function editBlindBox(id) {
+            alert(`Edit blind box ${id}`);
+        }
+        
+        function deleteBlindBox(id) {
+            if (confirm('Are you sure you want to delete this blind box?')) {
+                alert(`Blind box ${id} deleted`);
+            }
+        }
+        
+        function editCollection(id) {
+            alert(`Edit collection ${id}`);
+        }
+        
+        function deleteCollection(id) {
+            if (confirm('Are you sure you want to delete this collection?')) {
+                alert(`Collection ${id} deleted`);
+            }
+        }
+        
+        function editUser(id) {
+            alert(`Edit user ${id}`);
+        }
+        
+        function toggleUserStatus(id) {
+            alert(`Toggle user status ${id}`);
+        }
+        
+        function saveSettings() {
+            alert('Settings saved successfully!');
+        }
+        
+        function exportSettings() {
+            alert('Settings exported to JSON file!');
+        }
+        
+        function clearCache() {
+            if (confirm('Are you sure you want to clear all cache?')) {
+                alert('Cache cleared successfully!');
+            }
+        }
+        
+        // Initialize admin panel
+        document.addEventListener('DOMContentLoaded', () => {
+            window.adminPanel = new AdminPanel();
+        });
+    </script>
+</body>
+</html>

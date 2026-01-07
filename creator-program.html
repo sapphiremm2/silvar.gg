@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Creator Program - Silvar.gg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <meta name="color-scheme" content="light dark">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <!-- Frosted Glass Header -->
+    <header class="frosted-header">
+        <nav class="main-nav">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 5 L50 15 L50 45 L30 55 L10 45 L10 15 Z" fill="#4c7fe8" stroke="#ff57a6" stroke-width="2"/>
+                    </svg>
+                    <span>Silvar.gg</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <span class="creator-badge">🎨 CREATOR PROGRAM</span>
+            </div>
+            
+            <div class="nav-right">
+                <div class="balance-display" id="balance-display">
+                    <span id="balance-amount">0</span> 💎
+                    <button class="btn small" data-action="add-balance">+</button>
+                </div>
+                <div id="auth-section">
+                    <button data-action="login">Login</button>
+                    <button data-action="register">Register</button>
+                </div>
+                <div class="cart-section">
+                    <button class="cart-btn" data-action="view-cart">
+                        🛒 <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Creator Hero -->
+        <section class="creator-hero">
+            <div class="creator-hero-content">
+                <h1>🎨 Join Our Creator Program</h1>
+                <p class="hero-subtitle">Partner with Silvar.gg and earn money promoting the best Roblox marketplace!</p>
+                <div class="creator-stats">
+                    <div class="stat">
+                        <span class="stat-number">$0.50</span>
+                        <span class="stat-label">Per 1,000 views</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Follower bonus</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">85%</span>
+                        <span class="stat-label">Revenue share</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn primary" onclick="document.getElementById('application').scrollIntoView()">Apply Now</button>
+                    <button class="btn secondary" onclick="document.getElementById('benefits').scrollIntoView()">Learn More</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="benefits" class="benefits-section">
+            <h2>Why Partner with Silvar.gg?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Competitive Rates</h3>
+                    <p>Start at $0.50 per 1,000 views with bonuses for larger creators. Higher rates than most affiliate programs.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Custom Referral Links</h3>
+                    <p>Get personalized referral links and discount codes for your audience. Track your performance in real-time.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Performance Bonuses</h3>
+                    <p>Earn extra bonuses based on your conversion rates and total sales. The better you perform, the more you earn.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Early Access</h3>
+                    <p>Get early access to new features, products, and promotions before they're available to the public.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💬</div>
+                    <h3>Dedicated Support</h3>
+                    <p>Get priority support from our creator team. We're here to help you succeed and maximize your earnings.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏆</div>
+                    <h3>Exclusive Rewards</h3>
+                    <p>Participate in creator-exclusive giveaways, contests, and special events with premium prizes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rate Tiers -->
+        <section class="rate-tiers">
+            <h2>Creator Rate Tiers</h2>
+            <div class="tiers-grid">
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <h3>Starter</h3>
+                        <span class="tier-range">0 - 10K followers</span>
+                    </div>
+                    <div class="tier-rate">$0.50 <span>per 1K views</span></div>
+                    <ul class="tier-features">
+                        <li>✅ Custom referral link</li>
+                        <li>✅ Basic analytics</li>
+                        <li>✅ Monthly payouts</li>
+                        <li>✅ Discord support</li>
+                    </ul>
+                </div>
+                <div class="tier-card featured">
+                    <div class="tier-header">
+                        <h3>Influencer</h3>
+                        <span class="tier-range">10K - 50K followers</span>
+                        <span class="tier-badge">POPULAR</span>
+                    </div>
+                    <div class="tier-rate">$0.75 <span>per 1K views</span></div>
+                    <ul class="tier-features">
+                        <li>✅ Everything in Starter</li>
+                        <li>✅ Custom discount codes</li>
+                        <li>✅ Performance bonuses</li>
+                        <li>✅ Priority support</li>
+                    </ul>
+                </div>
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <h3>Partner</h3>
+                        <span class="tier-range">50K+ followers</span>
+                    </div>
+                    <div class="tier-rate">$1.00 <span>per 1K views</span></div>
+                    <ul class="tier-features">
+                        <li>✅ Everything in Influencer</li>
+                        <li>✅ Negotiated rates</li>
+                        <li>✅ Exclusive campaigns</li>
+                        <li>✅ Dedicated manager</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Form -->
+        <section id="application" class="application-section">
+            <h2>Apply to the Creator Program</h2>
+            <form class="application-form" id="application-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" name="email" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Primary Platform *</label>
+                        <select name="platform" required>
+                            <option value="">Select platform</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="twitch">Twitch</option>
+                            <option value="twitter">Twitter/X</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Username/Channel *</label>
+                        <input type="text" name="username" placeholder="@yourusername" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Follower Count *</label>
+                        <select name="followerCount" required>
+                            <option value="">Select range</option>
+                            <option value="0-1000">0 - 1,000</option>
+                            <option value="1000-5000">1,000 - 5,000</option>
+                            <option value="5000-10000">5,000 - 10,000</option>
+                            <option value="10000-50000">10,000 - 50,000</option>
+                            <option value="50000+">50,000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Roblox Username</label>
+                        <input type="text" name="robloxUsername" placeholder="Your Roblox username">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Content Focus</label>
+                    <textarea name="contentFocus" placeholder="Describe the type of content you create (e.g., MM2 gameplay, Roblox reviews, etc.)"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Why do you want to partner with Silvar.gg?</label>
+                    <textarea name="motivation" placeholder="Tell us why you'd be a great partner..."></textarea>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms" required>
+                        <span>I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></span>
+                    </label>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="age" required>
+                        <span>I am 18 years or older</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn primary">Submit Application</button>
+            </form>
+        </section>
+
+        <!-- FAQ for Creators -->
+        <section class="creator-faq">
+            <h2>Creator Program FAQ</h2>
+            <div class="faq-grid">
+                <details class="faq-item">
+                    <summary>How do I get paid?</summary>
+                    <div class="faq-content">
+                        <p>We pay creators monthly via PayPal, Stripe, or bank transfer. You must reach a minimum threshold of $25 before payouts are processed.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary>How are views counted?</summary>
+                    <div class="faq-content">
+                        <p>Views are counted based on unique viewers who see your content with our referral link or discount code. We use analytics from your platform plus our own tracking system.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary>Can I promote other marketplaces?</summary>
+                    <div class="faq-content">
+                        <p>Yes! We don't require exclusivity. However, you'll earn the best rates with Silvar.gg and get access to exclusive features not available elsewhere.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary>What kind of content should I create?</summary>
+                    <div class="faq-content">
+                        <p>Anything related to Roblox gaming! Popular content includes: unboxing videos, item reviews, trading guides, gameplay highlights, and marketplace comparisons.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary>How long does approval take?</summary>
+                    <div class="faq-content">
+                        <p>We review applications within 2-3 business days. If approved, you'll receive an email with your creator dashboard access and getting started guide.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Silvar.gg Creator Program</h3>
+                <p>Partner with the leading Roblox marketplace and turn your content into revenue.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blind-boxes.html">Blind Boxes</a></li>
+                    <li><a href="profile.html">My Account</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="creator-faq.html">Creator FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Community</h3>
+                <div class="social-links">
+                    <a href="https://discord.gg/silvar" class="social-link" target="_blank">💬 Discord Support</a>
+                    <a href="#" class="social-link">🐦 Twitter</a>
+                    <a href="#" class="social-link">📺 YouTube</a>
+                    <a href="#" class="social-link">🎵 TikTok</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© <span id="year"><script>document.write(new Date().getFullYear())</script></span> Silvar.gg Creator Program</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Creator program application form
+        document.getElementById('application-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const application = {
+                id: Date.now(),
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                platform: formData.get('platform'),
+                username: formData.get('username'),
+                followerCount: formData.get('followerCount'),
+                robloxUsername: formData.get('robloxUsername'),
+                contentFocus: formData.get('contentFocus'),
+                motivation: formData.get('motivation'),
+                status: 'pending',
+                appliedDate: new Date().toISOString()
+            };
+            
+            // Save application (in real app, this would be sent to server)
+            const applications = JSON.parse(localStorage.getItem('creator_applications') || '[]');
+            applications.push(application);
+            localStorage.setItem('creator_applications', JSON.stringify(applications));
+            
+            alert('Application submitted successfully! We will review your application and contact you within 2-3 business days.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

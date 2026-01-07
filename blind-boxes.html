@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Blind Boxes - Silvar.gg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <meta name="color-scheme" content="light dark">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <!-- Frosted Glass Header -->
+    <header class="frosted-header">
+        <nav class="main-nav">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 5 L50 15 L50 45 L30 55 L10 45 L10 15 Z" fill="#4c7fe8" stroke="#ff57a6" stroke-width="2"/>
+                    </svg>
+                    <span>Silvar.gg</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <select class="game-selector" id="game-selector">
+                    <option value="">Select Game</option>
+                    <option value="murder-mystery" selected>Murder Mystery 2</option>
+                    <option value="grow-garden">Grow A Garden</option>
+                    <option value="steal-brainrot">Steal A Brainrot</option>
+                    <option value="blade-ball">Blade Ball</option>
+                    <option value="blox-fruits">Blox Fruits</option>
+                    <option value="dress-impress">Dress To Impress</option>
+                </select>
+                
+                <select class="lang-currency">
+                    <option value="en-usd">🇺🇸 English / USD</option>
+                    <option value="en-eur">🇪🇺 English / EUR</option>
+                    <option value="es-usd">🇪🇸 Español / USD</option>
+                </select>
+            </div>
+            
+            <div class="nav-right">
+                <div class="balance-display" id="balance-display">
+                    <span id="balance-amount">0</span> 💎
+                    <button class="btn small" data-action="add-balance">+</button>
+                </div>
+                <div id="auth-section">
+                    <button data-action="login">Login</button>
+                    <button data-action="register">Register</button>
+                </div>
+                <div class="cart-section">
+                    <button class="cart-btn" data-action="view-cart">
+                        🛒 <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Blind Boxes Header -->
+        <section class="blindboxes-header">
+            <h1>🎲 Blind Boxes</h1>
+            <p>Try your luck and win amazing items! Every box guarantees value worth at least what you pay!</p>
+            
+            <div class="blindbox-stats">
+                <div class="stat">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Delivery Rate</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1:100</span>
+                    <span class="stat-label">Special Odds</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%+</span>
+                    <span class="stat-label">Value Guarantee</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Tabs -->
+        <section class="game-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-game="murder-mystery">Murder Mystery 2</button>
+                <button class="tab-btn" data-game="grow-garden">Grow A Garden</button>
+                <button class="tab-btn" data-game="steal-brainrot">Steal A Brainrot</button>
+                <button class="tab-btn" data-game="blade-ball">Blade Ball</button>
+                <button class="tab-btn" data-game="blox-fruits">Blox Fruits</button>
+                <button class="tab-btn" data-game="dress-impress">Dress To Impress</button>
+            </div>
+        </section>
+
+        <!-- Blind Boxes -->
+        <section class="blindboxes-section">
+            <div class="blindboxes-grid" id="blindboxes-grid">
+                <!-- Murder Mystery 2 Boxes -->
+                <div class="blindbox-card common" data-game="murder-mystery">
+                    <div class="box-header">
+                        <h3>Mystery Box</h3>
+                        <div class="price-badge">$1.00</div>
+                        <div class="rarity-badge common">Common - Legendary</div>
+                    </div>
+                    <div class="box-visual">
+                        <div class="box-icon">📦</div>
+                        <div class="box-glow"></div>
+                    </div>
+                    <div class="box-description">
+                        <p>Perfect for beginners! Contains items ranging from Common to Legendary rarity.</p>
+                        <ul class="prize-list">
+                            <li>✓ Common items (70% chance)</li>
+                            <li>✓ Rare items (20% chance)</li>
+                            <li>✓ Epic items (8% chance)</li>
+                            <li>✓ Legendary items (2% chance)</li>
+                            <li>🌟 Special item (1:100 chance)</li>
+                        </ul>
+                    </div>
+                    <button class="btn secondary open-btn" data-action="open-blindbox" data-box='{"name":"Mystery Box","price":1,"game":"murder-mystery","type":"common"}'>
+                        Open for $1 (50 💎)
+                    </button>
+                </div>
+                
+                <div class="blindbox-card rare" data-game="murder-mystery">
+                    <div class="box-header">
+                        <h3>Godly Chance</h3>
+                        <div class="price-badge">$3.00</div>
+                        <div class="rarity-badge rare">Rare - Godly</div>
+                    </div>
+                    <div class="box-visual">
+                        <div class="box-icon">🎯</div>
+                        <div class="box-glow"></div>
+                    </div>
+                    <div class="box-description">
+                        <p>Higher chances for godly items! The perfect box for serious collectors.</p>
+                        <ul class="prize-list">
+                            <li>✓ Rare items (50% chance)</li>
+                            <li>✓ Epic items (30% chance)</li>
+                            <li>✓ Legendary items (15% chance)</li>
+                            <li>✓ Godly items (5% chance)</li>
+                            <li>🌟 Special item (1:100 chance)</li>
+                        </ul>
+                    </div>
+                    <button class="btn secondary open-btn" data-action="open-blindbox" data-box='{"name":"Godly Chance","price":3,"game":"murder-mystery","type":"rare"}'>
+                        Open for $3 (150 💎)
+                    </button>
+                </div>
+                
+                <div class="blindbox-card epic" data-game="murder-mystery">
+                    <div class="box-header">
+                        <h3>Chroma Rush</h3>
+                        <div class="price-badge">$5.00</div>
+                        <div class="rarity-badge epic">Epic - Chroma</div>
+                    </div>
+                    <div class="box-visual">
+                        <div class="box-icon">🌈</div>
+                        <div class="box-glow"></div>
+                    </div>
+                    <div class="box-description">
+                        <p>The ultimate box for chroma collectors! Best odds for rare chroma items.</p>
+                        <ul class="prize-list">
+                            <li>✓ Epic items (40% chance)</li>
+                            <li>✓ Legendary items (35% chance)</li>
+                            <li>✓ Godly items (20% chance)</li>
+                            <li>✓ Chroma items (5% chance)</li>
+                            <li>🌟 Special item (1:100 chance)</li>
+                        </ul>
+                    </div>
+                    <button class="btn secondary open-btn" data-action="open-blindbox" data-box='{"name":"Chroma Rush","price":5,"game":"murder-mystery","type":"epic"}'>
+                        Open for $5 (250 💎)
+                    </button>
+                </div>
+                
+                <div class="blindbox-card legendary featured" data-game="murder-mystery">
+                    <div class="box-header">
+                        <h3>Legendary Chest</h3>
+                        <div class="price-badge">$10.00</div>
+                        <div class="rarity-badge legendary">Legendary - Ancient</div>
+                        <div class="featured-badge">🔥 HOT</div>
+                    </div>
+                    <div class="box-visual">
+                        <div class="box-icon">💎</div>
+                        <div class="box-glow"></div>
+                    </div>
+                    <div class="box-description">
+                        <p>The premium experience! Guaranteed legendary or better with a chance for ancient items!</p>
+                        <ul class="prize-list">
+                            <li>✓ Guaranteed Legendary+</li>
+                            <li>✓ Godly items (40% chance)</li>
+                            <li>✓ Chroma items (25% chance)</li>
+                            <li>✓ Ancient items (5% chance)</li>
+                            <li>🌟 Special item (1:50 chance)</li>
+                        </ul>
+                    </div>
+                    <button class="btn primary open-btn" data-action="open-blindbox" data-box='{"name":"Legendary Chest","price":10,"game":"murder-mystery","type":"legendary"}'>
+                        Open for $10 (500 💎)
+                    </button>
+                </div>
+                
+                <!-- Grow A Garden Boxes -->
+                <div class="blindbox-card common" data-game="grow-garden" style="display: none;">
+                    <div class="box-header">
+                        <h3>Garden Starter</h3>
+                        <div class="price-badge">$2.00</div>
+                        <div class="rarity-badge common">Common - Rare</div>
+                    </div>
+                    <div class="box-visual">
+                        <div class="box-icon">🌱</div>
+                        <div class="box-glow"></div>
+                    </div>
+                    <div class="box-description">
+                        <p>Perfect for new gardeners! Contains seeds and basic tools to get started.</p>
+                        <ul class="prize-list">
+                            <li>✓ Common seeds (60% chance)</li>
+                            <li>✓ Uncommon seeds (25% chance)</li>
+                            <li>✓ Rare seeds (10% chance)</li>
+                            <li>✓ Epic seeds (5% chance)</li>
+                            <li>🌟 Special item (1:100 chance)</li>
+                        </ul>
+                    </div>
+                    <button class="btn secondary open-btn" data-action="open-blindbox" data-box='{"name":"Garden Starter","price":2,"game":"grow-garden","type":"common"}'>
+                        Open for $2 (100 💎)
+                    </button>
+                </div>
+                
+                <div class="blindbox-card rare" data-game="grow-garden" style="display: none;">
+                    <div class="box-header">
+                        <h3>Mystery Seeds</h3>
+                        <div class="price-badge">$4.00</div>
+                        <div class="rarity-badge rare">Rare - Legendary</div>
+                    </div>
+                    <div class="box-visual">
+                        <div class="box-icon">🌰</div>
+                        <div class="box-glow"></div>
+                    </div>
+                    <div class="box-description">
+                        <p>Advanced seeds for experienced gardeners! Higher chance for rare plants.</p>
+                        <ul class="prize-list">
+                            <li>✓ Rare seeds (50% chance)</li>
+                            <li>✓ Epic seeds (30% chance)</li>
+                            <li>✓ Legendary seeds (15% chance)</li>
+                            <li>✓ Mythical seeds (5% chance)</li>
+                            <li>🌟 Special item (1:100 chance)</li>
+                        </ul>
+                    </div>
+                    <button class="btn secondary open-btn" data-action="open-blindbox" data-box='{"name":"Mystery Seeds","price":4,"game":"grow-garden","type":"rare"}'>
+                        Open for $4 (200 💎)
+                    </button>
+                </div>
+                
+                <!-- Steal A Brainrot Boxes -->
+                <div class="blindbox-card common" data-game="steal-brainrot" style="display: none;">
+                    <div class="box-header">
+                        <h3>Brainrot Bundle</h3>
+                        <div class="price-badge">$3.00</div>
+                        <div class="rarity-badge common">Common - Epic</div>
+                    </div>
+                    <div class="box-visual">
+                        <div class="box-icon">🧠</div>
+                        <div class="box-glow"></div>
+                    </div>
+                    <div class="box-description">
+                        <p>Essential items for brainrot warriors! Weapons and gear to dominate the game.</p>
+                        <ul class="prize-list">
+                            <li>✓ Common weapons (55% chance)</li>
+                            <li>✓ Uncommon weapons (25% chance)</li>
+                            <li>✓ Rare weapons (15% chance)</li>
+                            <li>✓ Epic weapons (5% chance)</li>
+                            <li>🌟 Special item (1:100 chance)</li>
+                        </ul>
+                    </div>
+                    <button class="btn secondary open-btn" data-action="open-blindbox" data-box='{"name":"Brainrot Bundle","price":3,"game":"steal-brainrot","type":"common"}'>
+                        Open for $3 (150 💎)
+                    </button>
+                </div>
+                
+                <div class="blindbox-card epic" data-game="steal-brainrot" style="display: none;">
+                    <div class="box-header">
+                        <h3>Elite Arsenal</h3>
+                        <div class="price-badge">$7.00</div>
+                        <div class="rarity-badge epic">Epic - Legendary</div>
+                    </div>
+                    <div class="box-visual">
+                        <div class="box-icon">⚔️</div>
+                        <div class="box-glow"></div>
+                    </div>
+                    <div class="box-description">
+                        <p>Premium weapons for elite players! Best chance for legendary gear.</p>
+                        <ul class="prize-list">
+                            <li>✓ Epic weapons (45% chance)</li>
+                            <li>✓ Legendary weapons (35% chance)</li>
+                            <li>✓ Mythical weapons (15% chance)</li>
+                            <li>✓ Ancient weapons (5% chance)</li>
+                            <li>🌟 Special item (1:50 chance)</li>
+                        </ul>
+                    </div>
+                    <button class="btn secondary open-btn" data-action="open-blindbox" data-box='{"name":"Elite Arsenal","price":7,"game":"steal-brainrot","type":"epic"}'>
+                        Open for $7 (350 💎)
+                    </button>
+                </div>
+            </div>
+            
+            <div class="blindbox-info">
+                <h2>How Do Blind Boxes Work?</h2>
+                <div class="info-steps">
+                    <div class="info-step">
+                        <div class="step-number">1</div>
+                        <h3>Choose Your Box</h3>
+                        <p>Select a blind box based on your budget and desired rarity level.</p>
+                    </div>
+                    <div class="info-step">
+                        <div class="step-number">2</div>
+                        <h3>Open & Reveal</h3>
+                        <p>Watch the exciting opening animation as your items are revealed!</p>
+                    </div>
+                    <div class="info-step">
+                        <div class="step-number">3</div>
+                        <h3>Get Your Items</h3>
+                        <p>All items are instantly added to your inventory for quick delivery!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="probability-info">
+                <h2>Probability Information</h2>
+                <p>All blind boxes use a fair random number generator to determine your prizes. The value of items you receive will always be equal to or greater than the price you pay for the box!</p>
+                <div class="prob-table">
+                    <div class="prob-row">
+                        <span>Special Items</span>
+                        <span>1:100 (1%)</span>
+                    </div>
+                    <div class="prob-row">
+                        <span>Ancient Items</span>
+                        <span>1:20 (5%)</span>
+                    </div>
+                    <div class="prob-row">
+                        <span>Chroma Items</span>
+                        <span>1:10 (10%)</span>
+                    </div>
+                    <div class="prob-row">
+                        <span>Godly Items</span>
+                        <span>1:5 (20%)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>What is Silvar.gg?</h3>
+                <p>Silvar.gg is the leading online marketplace for in-game items, offering instant delivery, unbeatable prices, and a secure shopping experience.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="profile.html">My Account</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">🐦 Twitter</a>
+                    <a href="#" class="social-link">📺 YouTube</a>
+                    <a href="#" class="social-link">🎵 TikTok</a>
+                    <a href="#" class="social-link">💬 Discord</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© <span id="year"><script>document.write(new Date().getFullYear())</script></span> Silvar.gg – Not affiliated with Roblox Corporation or any game developers.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Blind boxes functionality
+        let currentGame = 'murder-mystery';
+        
+        // Game tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentGame = btn.dataset.game;
+                filterBoxes();
+            });
+        });
+        
+        // Game selector
+        document.getElementById('game-selector').addEventListener('change', (e) => {
+            if (e.target.value) {
+                currentGame = e.target.value;
+                
+                // Update active tab
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.game === currentGame);
+                });
+                
+                filterBoxes();
+            }
+        });
+        
+        function filterBoxes() {
+            document.querySelectorAll('.blindbox-card').forEach(card => {
+                if (card.dataset.game === currentGame) {
+                    card.style.display = 'block';
+                    // Animate in
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Box hover animations
+        document.querySelectorAll('.blindbox-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const glow = card.querySelector('.box-glow');
+                if (glow) {
+                    glow.style.opacity = '1';
+                    glow.style.transform = 'scale(1.2)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const glow = card.querySelector('.box-glow');
+                if (glow) {
+                    glow.style.opacity = '0';
+                    glow.style.transform = 'scale(1)';
+                }
+            });
+        });
+        
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            filterBoxes();
+            
+            // URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameParam = urlParams.get('game');
+            if (gameParam) {
+                currentGame = gameParam;
+                document.getElementById('game-selector').value = gameParam;
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.game === currentGame);
+                });
+                filterBoxes();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>My Profile - Silvar.gg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <meta name="color-scheme" content="light dark">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <!-- Frosted Glass Header -->
+    <header class="frosted-header">
+        <nav class="main-nav">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 5 L50 15 L50 45 L30 55 L10 45 L10 15 Z" fill="#4c7fe8" stroke="#ff57a6" stroke-width="2"/>
+                    </svg>
+                    <span>Silvar.gg</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <select class="game-selector" id="game-selector">
+                    <option value="">Select Game</option>
+                    <option value="murder-mystery">Murder Mystery 2</option>
+                    <option value="grow-garden">Grow A Garden</option>
+                    <option value="steal-brainrot">Steal A Brainrot</option>
+                    <option value="blade-ball">Blade Ball</option>
+                    <option value="blox-fruits">Blox Fruits</option>
+                    <option value="dress-impress">Dress To Impress</option>
+                </select>
+                
+                <select class="lang-currency">
+                    <option value="en-usd">🇺🇸 English / USD</option>
+                    <option value="en-eur">🇪🇺 English / EUR</option>
+                    <option value="es-usd">🇪🇸 Español / USD</option>
+                </select>
+            </div>
+            
+            <div class="nav-right">
+                <div class="balance-display" id="balance-display">
+                    <span id="balance-amount">0</span> 💎
+                    <button class="btn small" data-action="add-balance">+</button>
+                </div>
+                <div id="auth-section">
+                    <button data-action="login">Login</button>
+                    <button data-action="register">Register</button>
+                </div>
+                <div class="cart-section">
+                    <button class="cart-btn" data-action="view-cart">
+                        🛒 <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Profile Header -->
+        <section class="profile-header">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <span id="profile-avatar">👤</span>
+                </div>
+                <div class="profile-details">
+                    <h1 id="profile-username">Guest User</h1>
+                    <p id="profile-email">Not logged in</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="join-date">-</span>
+                            <span class="stat-label">Member Since</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="total-purchases">0</span>
+                            <span class="stat-label">Total Purchases</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value" id="items-owned">0</span>
+                            <span class="stat-label">Items Owned</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn secondary" data-action="add-balance">Add Balance</button>
+                <button class="btn" onclick="window.location.href='shop.html'">Continue Shopping</button>
+            </div>
+        </section>
+
+        <!-- Profile Tabs -->
+        <section class="profile-tabs">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="inventory">My Inventory</button>
+                <button class="tab-btn" data-tab="purchases">Purchase History</button>
+                <button class="tab-btn" data-tab="balance">Balance History</button>
+                <button class="tab-btn" data-tab="settings">Settings</button>
+            </div>
+        </section>
+
+        <!-- Tab Content -->
+        <section class="profile-content">
+            <!-- Inventory Tab -->
+            <div id="inventory-tab" class="tab-content active">
+                <div class="inventory-header">
+                    <h2>My Inventory</h2>
+                    <div class="inventory-filters">
+                        <select id="inventory-game-filter">
+                            <option value="">All Games</option>
+                            <option value="murder-mystery">Murder Mystery 2</option>
+                            <option value="grow-garden">Grow A Garden</option>
+                            <option value="steal-brainrot">Steal A Brainrot</option>
+                            <option value="blade-ball">Blade Ball</option>
+                            <option value="blox-fruits">Blox Fruits</option>
+                            <option value="dress-impress">Dress To Impress</option>
+                        </select>
+                        <select id="inventory-rarity-filter">
+                            <option value="">All Rarities</option>
+                            <option value="common">Common</option>
+                            <option value="uncommon">Uncommon</option>
+                            <option value="rare">Rare</option>
+                            <option value="epic">Epic</option>
+                            <option value="legendary">Legendary</option>
+                            <option value="godly">Godly</option>
+                            <option value="chroma">Chroma</option>
+                            <option value="ancient">Ancient</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="inventory-grid" id="inventory-grid">
+                    <div class="empty-inventory">
+                        <div class="empty-icon">📦</div>
+                        <h3>Your inventory is empty</h3>
+                        <p>Start by opening some blind boxes or shopping in our store!</p>
+                        <div class="empty-actions">
+                            <button class="btn secondary" onclick="window.location.href='blind-boxes.html'">Open Blind Boxes</button>
+                            <button class="btn" onclick="window.location.href='shop.html'">Browse Shop</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Purchases Tab -->
+            <div id="purchases-tab" class="tab-content">
+                <div class="purchases-header">
+                    <h2>Purchase History</h2>
+                    <div class="purchases-filters">
+                        <select id="purchases-date-filter">
+                            <option value="">All Time</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="year">This Year</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="purchases-list" id="purchases-list">
+                    <div class="empty-purchases">
+                        <div class="empty-icon">🛒</div>
+                        <h3>No purchases yet</h3>
+                        <p>Your purchase history will appear here when you make your first purchase.</p>
+                        <div class="empty-actions">
+                            <button class="btn" onclick="window.location.href='shop.html'">Start Shopping</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Balance Tab -->
+            <div id="balance-tab" class="tab-content">
+                <div class="balance-header">
+                    <h2>Balance History</h2>
+                    <div class="balance-summary">
+                        <div class="balance-card">
+                            <h3>Current Balance</h3>
+                            <span class="balance-amount" id="current-balance-display">0 💎</span>
+                        </div>
+                        <div class="balance-card">
+                            <h3>Total Added</h3>
+                            <span class="balance-amount" id="total-added-display">0 💎</span>
+                        </div>
+                        <div class="balance-card">
+                            <h3>Total Spent</h3>
+                            <span class="balance-amount" id="total-spent-display">0 💎</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="balance-list" id="balance-list">
+                    <div class="empty-balance">
+                        <div class="empty-icon">💎</div>
+                        <h3>No balance transactions</h3>
+                        <p>Add balance to start purchasing items and blind boxes!</p>
+                        <div class="empty-actions">
+                            <button class="btn secondary" data-action="add-balance">Add Balance</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings-tab" class="tab-content">
+                <div class="settings-section">
+                    <h2>Account Settings</h2>
+                    
+                    <div class="settings-group">
+                        <h3>Profile Information</h3>
+                        <div class="setting-item">
+                            <label>Username</label>
+                            <input type="text" id="settings-username" placeholder="Enter username">
+                            <button class="btn small" onclick="updateUsername()">Update</button>
+                        </div>
+                        <div class="setting-item">
+                            <label>Email</label>
+                            <input type="email" id="settings-email" placeholder="Enter email">
+                            <button class="btn small" onclick="updateEmail()">Update</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>Security</h3>
+                        <div class="setting-item">
+                            <label>Current Password</label>
+                            <input type="password" id="current-password" placeholder="Current password">
+                        </div>
+                        <div class="setting-item">
+                            <label>New Password</label>
+                            <input type="password" id="new-password" placeholder="New password">
+                        </div>
+                        <div class="setting-item">
+                            <label>Confirm New Password</label>
+                            <input type="password" id="confirm-password" placeholder="Confirm new password">
+                            <button class="btn small" onclick="updatePassword()">Update Password</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>Preferences</h3>
+                        <div class="setting-item">
+                            <label>Theme</label>
+                            <select id="theme-select">
+                                <option value="auto">Auto (System)</option>
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>Language</label>
+                            <select id="language-select">
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>Danger Zone</h3>
+                        <div class="danger-actions">
+                            <button class="btn danger" onclick="deleteAccount()">Delete Account</button>
+                            <button class="btn secondary" onclick="exportData()">Export Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>What is Silvar.gg?</h3>
+                <p>Silvar.gg is the leading online marketplace for in-game items, offering instant delivery, unbeatable prices, and a secure shopping experience.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blind-boxes.html">Blind Boxes</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">🐦 Twitter</a>
+                    <a href="#" class="social-link">📺 YouTube</a>
+                    <a href="#" class="social-link">🎵 TikTok</a>
+                    <a href="#" class="social-link">💬 Discord</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© <span id="year"><script>document.write(new Date().getFullYear())</script></span> Silvar.gg – Not affiliated with Roblox Corporation or any game developers.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Profile functionality
+        class ProfileManager {
+            constructor() {
+                this.currentUser = null;
+                this.init();
+            }
+            
+            init() {
+                this.loadUserData();
+                this.initTabs();
+                this.loadInventory();
+                this.loadPurchases();
+                this.loadBalanceHistory();
+                this.initSettings();
+            }
+            
+            loadUserData() {
+                const userStr = localStorage.getItem('silvar_user');
+                if (userStr) {
+                    this.currentUser = JSON.parse(userStr);
+                    this.updateProfileDisplay();
+                } else {
+                    // Show guest view
+                    this.showGuestView();
+                }
+            }
+            
+            updateProfileDisplay() {
+                if (this.currentUser) {
+                    document.getElementById('profile-username').textContent = this.currentUser.username;
+                    document.getElementById('profile-email').textContent = this.currentUser.email;
+                    document.getElementById('profile-avatar').textContent = this.getAvatar(this.currentUser.username);
+                    document.getElementById('join-date').textContent = new Date(this.currentUser.joinDate).toLocaleDateString();
+                    
+                    // Load stats
+                    this.loadStats();
+                }
+            }
+            
+            showGuestView() {
+                document.getElementById('profile-username').textContent = 'Guest User';
+                document.getElementById('profile-email').textContent = 'Not logged in';
+                document.getElementById('profile-avatar').textContent = '👤';
+                document.getElementById('join-date').textContent = '-';
+                document.getElementById('total-purchases').textContent = '0';
+                document.getElementById('items-owned').textContent = '0';
+            }
+            
+            getAvatar(username) {
+                const avatars = ['👤', '🎮', '🎯', '⚔️', '🛡️', '🏆', '💎', '👑'];
+                let hash = 0;
+                for (let i = 0; i < username.length; i++) {
+                    hash = username.charCodeAt(i) + ((hash << 5) - hash);
+                }
+                return avatars[Math.abs(hash) % avatars.length];
+            }
+            
+            loadStats() {
+                const purchases = JSON.parse(localStorage.getItem('silvar_purchases') || '[]');
+                const inventory = JSON.parse(localStorage.getItem('silvar_inventory') || '[]');
+                
+                document.getElementById('total-purchases').textContent = purchases.length;
+                document.getElementById('items-owned').textContent = inventory.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            }
+            
+            initTabs() {
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        
+                        const tabId = btn.dataset.tab;
+                        document.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+                        document.getElementById(`${tabId}-tab`).classList.add('active');
+                    });
+                });
+            }
+            
+            loadInventory() {
+                const inventory = JSON.parse(localStorage.getItem('silvar_inventory') || '[]');
+                const grid = document.getElementById('inventory-grid');
+                
+                if (inventory.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-inventory">
+                            <div class="empty-icon">📦</div>
+                            <h3>Your inventory is empty</h3>
+                            <p>Start by opening some blind boxes or shopping in our store!</p>
+                            <div class="empty-actions">
+                                <button class="btn secondary" onclick="window.location.href='blind-boxes.html'">Open Blind Boxes</button>
+                                <button class="btn" onclick="window.location.href='shop.html'">Browse Shop</button>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                grid.innerHTML = inventory.map(item => `
+                    <div class="inventory-item">
+                        <div class="item-image">
+                            <span class="item-icon">${item.image || '🎁'}</span>
+                            ${item.quantity > 1 ? `<span class="item-quantity">${item.quantity}</span>` : ''}
+                        </div>
+                        <div class="item-info">
+                            <h4>${item.name}</h4>
+                            <p class="item-rarity ${item.rarity || 'common'}">${(item.rarity || 'common').toUpperCase()}</p>
+                            <p class="item-game">${this.getGameName(item.game || 'murder-mystery')}</p>
+                            <p class="item-acquired">Acquired: ${new Date(item.acquired || Date.now()).toLocaleDateString()}</p>
+                            ${item.source === 'wheel' ? '<span class="item-source">🎡 Wheel Prize</span>' : ''}
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn small" onclick="deliverItem('${item.id || item.name}')">Deliver</button>
+                            <button class="btn small secondary" onclick="giftItem('${item.id || item.name}')">Gift</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Add filters
+                this.initInventoryFilters(inventory);
+            }
+            
+            initInventoryFilters(inventory) {
+                const gameFilter = document.getElementById('inventory-game-filter');
+                const rarityFilter = document.getElementById('inventory-rarity-filter');
+                
+                const filterItems = () => {
+                    const game = gameFilter.value;
+                    const rarity = rarityFilter.value;
+                    
+                    document.querySelectorAll('.inventory-item').forEach(item => {
+                        const itemGame = item.querySelector('.item-game').textContent.toLowerCase().replace(/\s+/g, '-');
+                        const itemRarity = item.querySelector('.item-rarity').textContent.toLowerCase();
+                        
+                        const gameMatch = !game || itemGame.includes(game);
+                        const rarityMatch = !rarity || itemRarity.includes(rarity);
+                        
+                        item.style.display = (gameMatch && rarityMatch) ? 'flex' : 'none';
+                    });
+                };
+                
+                gameFilter.addEventListener('change', filterItems);
+                rarityFilter.addEventListener('change', filterItems);
+            }
+            
+            getGameName(gameKey) {
+                const games = {
+                    'murder-mystery': 'Murder Mystery 2',
+                    'grow-garden': 'Grow A Garden',
+                    'steal-brainrot': 'Steal A Brainrot',
+                    'blade-ball': 'Blade Ball',
+                    'blox-fruits': 'Blox Fruits',
+                    'dress-impress': 'Dress To Impress'
+                };
+                return games[gameKey] || gameKey;
+            }
+            
+            loadPurchases() {
+                const purchases = JSON.parse(localStorage.getItem('silvar_purchases') || '[]');
+                const list = document.getElementById('purchases-list');
+                
+                if (purchases.length === 0) {
+                    list.innerHTML = `
+                        <div class="empty-purchases">
+                            <div class="empty-icon">🛒</div>
+                            <h3>No purchases yet</h3>
+                            <p>Your purchase history will appear here when you make your first purchase.</p>
+                            <div class="empty-actions">
+                                <button class="btn" onclick="window.location.href='shop.html'">Start Shopping</button>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                list.innerHTML = purchases.map(purchase => `
+                    <div class="purchase-item">
+                        <div class="purchase-header">
+                            <span class="purchase-id">Order #${purchase.id}</span>
+                            <span class="purchase-date">${new Date(purchase.date).toLocaleDateString()}</span>
+                            <span class="purchase-total">$${purchase.total.toFixed(2)} (${purchase.sapphireCost} 💎)</span>
+                        </div>
+                        <div class="purchase-items">
+                            ${purchase.items.map(item => `
+                                <div class="purchase-item-detail">
+                                    <img src="${item.image}" alt="${item.name}">
+                                    <div class="item-details">
+                                        <h4>${item.name}</h4>
+                                        <p>$${item.price} x ${item.quantity}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="purchase-actions">
+                            <button class="btn small" onclick="reorderPurchase('${purchase.id}')">Reorder</button>
+                            <button class="btn small secondary" onclick="viewPurchaseDetails('${purchase.id}')">Details</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            loadBalanceHistory() {
+                const balanceHistory = JSON.parse(localStorage.getItem('silvar_balance_history') || '[]');
+                const list = document.getElementById('balance-list');
+                
+                // Calculate totals
+                const totalAdded = balanceHistory.filter(tx => tx.type === 'added').reduce((sum, tx) => sum + tx.amount, 0);
+                const totalSpent = balanceHistory.filter(tx => tx.type === 'spent').reduce((sum, tx) => sum + tx.amount, 0);
+                const currentBalance = parseInt(localStorage.getItem('silvar_balance') || '0');
+                
+                document.getElementById('current-balance-display').textContent = `${currentBalance} 💎`;
+                document.getElementById('total-added-display').textContent = `${totalAdded} 💎`;
+                document.getElementById('total-spent-display').textContent = `${totalSpent} 💎`;
+                
+                if (balanceHistory.length === 0) {
+                    list.innerHTML = `
+                        <div class="empty-balance">
+                            <div class="empty-icon">💎</div>
+                            <h3>No balance transactions</h3>
+                            <p>Add balance to start purchasing items and blind boxes!</p>
+                            <div class="empty-actions">
+                                <button class="btn secondary" data-action="add-balance">Add Balance</button>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                list.innerHTML = balanceHistory.map(tx => `
+                    <div class="balance-transaction ${tx.type}">
+                        <div class="tx-info">
+                            <span class="tx-type">${tx.type === 'added' ? '💰 Balance Added' : '💳 Balance Spent'}</span>
+                            <span class="tx-date">${new Date(tx.date).toLocaleDateString()}</span>
+                            <span class="tx-description">${tx.description || 'No description'}</span>
+                        </div>
+                        <div class="tx-amount ${tx.type}">
+                            ${tx.type === 'added' ? '+' : '-'}${tx.amount} 💎
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            initSettings() {
+                if (this.currentUser) {
+                    document.getElementById('settings-username').value = this.currentUser.username;
+                    document.getElementById('settings-email').value = this.currentUser.email;
+                }
+                
+                // Theme setting
+                const currentTheme = localStorage.getItem('theme') || 'auto';
+                document.getElementById('theme-select').value = currentTheme;
+                
+                document.getElementById('theme-select').addEventListener('change', (e) => {
+                    const theme = e.target.value;
+                    localStorage.setItem('theme', theme);
+                    if (theme === 'dark') {
+                        document.documentElement.classList.add('dark');
+                    } else if (theme === 'light') {
+                        document.documentElement.classList.remove('dark');
+                    } else {
+                        // Auto - follow system
+                        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                        document.documentElement.classList.toggle('dark', prefersDark);
+                    }
+                });
+            }
+        }
+        
+        // Global functions
+        function deliverItem(itemId) {
+            alert('Item delivery system would connect to the game here!');
+        }
+        
+        function giftItem(itemId) {
+            const recipient = prompt('Enter recipient username:');
+            if (recipient) {
+                alert(`Gift sent to ${recipient}!`);
+            }
+        }
+        
+        function reorderPurchase(purchaseId) {
+            alert('Reorder functionality would add items to cart!');
+        }
+        
+        function viewPurchaseDetails(purchaseId) {
+            alert('Purchase details would open in a modal!');
+        }
+        
+        function updateUsername() {
+            const newUsername = document.getElementById('settings-username').value;
+            if (newUsername) {
+                alert('Username updated successfully!');
+            }
+        }
+        
+        function updateEmail() {
+            const newEmail = document.getElementById('settings-email').value;
+            if (newEmail) {
+                alert('Email updated successfully!');
+            }
+        }
+        
+        function updatePassword() {
+            const currentPass = document.getElementById('current-password').value;
+            const newPass = document.getElementById('new-password').value;
+            const confirmPass = document.getElementById('confirm-password').value;
+            
+            if (newPass === confirmPass) {
+                alert('Password updated successfully!');
+            } else {
+                alert('Passwords do not match!');
+            }
+        }
+        
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                alert('Account deletion would be processed here.');
+            }
+        }
+        
+        function exportData() {
+            alert('Data export would download a JSON file with all your information.');
+        }
+        
+        // Initialize profile manager
+        document.addEventListener('DOMContentLoaded', () => {
+            window.profileManager = new ProfileManager();
+        });
+    </script>
+</body>
+</html>
